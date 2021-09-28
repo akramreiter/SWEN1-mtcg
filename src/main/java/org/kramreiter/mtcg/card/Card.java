@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-public abstract class Card {
+public abstract class Card implements Cloneable {
     protected int baseStrength;
     @Setter
     protected int strength;
@@ -23,4 +23,12 @@ public abstract class Card {
     protected MonsterTag tag;
     @Setter
     protected String customWin;
+
+    public Card clone() {
+        try {
+            return (Card) super.clone();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
