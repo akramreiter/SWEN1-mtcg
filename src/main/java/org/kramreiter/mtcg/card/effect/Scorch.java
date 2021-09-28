@@ -18,6 +18,6 @@ public class Scorch implements UniqueEffect {
 
     @Override
     public String getDescription() {
-        return "Effect: Hellfire\nBefore combat -> all enemy cards lose 5 strength\nToo hot for you?";
+        return "Effect: Hellfire\nBefore combat -> all enemy cards lose 5 strength\nSome just want to see the world burn";
     }
 }
