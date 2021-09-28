@@ -1,0 +1,18 @@
+@startuml
+enum MonsterTag
+enum CardType
+enum Rarity
+abstract Card
+Card : Rarity rarity
+Card : MonsterTag tag
+Card : CardType type
+Card : int baseStrength
+Card : int strength
+Card :
+Card <|-- CardMonster
+Card <|-- CardSpell
+
+User "1" *-- "x" Card : owns
+
+interface SpecialRule
+@enduml
