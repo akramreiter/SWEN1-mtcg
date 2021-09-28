@@ -12,17 +12,28 @@ import org.kramreiter.mtcg.card.Rarity;
 public class User {
     protected String username;
     @Setter(AccessLevel.NONE)
-    protected String[] deckCardNames;
+    protected String[] deckCards;
     @Setter(AccessLevel.NONE)
     protected String[] ownedCards;
     protected int elo;
     protected int payToWinCoins;
+    protected boolean legendRoll;
+
+    public User(String username) {
+        this.username = username;
+        this.payToWinCoins = 20;
+        this.elo = 1000;
+        this.legendRoll = true;
+    }
 
     public Card[] openPack() {
         if (payToWinCoins > 4) {
             payToWinCoins -= 5;
             double random = Math.random();
-            if (random > 0.95) {
+            if (random > 0.95 || legendRoll) {
+                if (legendRoll) {
+                    legendRoll = false;
+                }
                 return new Card[] {
                         CardFactory.getRandomCardForRarity(Rarity.Legendary),
                         CardFactory.getRandomCardForRarity(Rarity.Epic),

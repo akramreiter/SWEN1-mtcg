@@ -2,11 +2,11 @@ package org.kramreiter.mtcg.card;
 
 public class CardFactory {
 
-    public static Card getCard(String name) {
+    public static Card getCard(String cardId) {
         return null;
     }
 
-    public static Card getCard(String name, Rarity rarity) {
+    public static Card getCard(String cardId, Rarity rarity) {
         return null;
     }
 
