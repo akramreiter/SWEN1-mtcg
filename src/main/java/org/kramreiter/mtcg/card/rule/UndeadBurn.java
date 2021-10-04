@@ -6,7 +6,7 @@ public class UndeadBurn implements SpecialRule {
     @Override
     public CombatOutcome executeRule(Card source, Card target) {
         if (source.isSpell() && !target.isSpell() && source.getCardType() == CardType.Fire && target.getTag() == MonsterTag.Undead) {
-            return new CombatOutcome(target.getName() + " was instantly burned through " + source.getName(), source, target);
+            return new CombatOutcome("/l was instantly burned by /w", source, target);
         }
         return null;
     }

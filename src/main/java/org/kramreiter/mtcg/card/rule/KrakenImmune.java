@@ -9,7 +9,7 @@ public class KrakenImmune implements SpecialRule {
     @Override
     public CombatOutcome executeRule(Card source, Card target) {
         if (!source.isSpell() && target.isSpell() && source.getTag() == MonsterTag.Kraken) {
-            return new CombatOutcome(source.getName() + " is immune to spells and " + source.getName() + "proved useless against it", source, target);
+            return new CombatOutcome("/w is immune to spells and /l proved useless against it", source, target);
         }
         return null;
     }

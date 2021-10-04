@@ -9,7 +9,7 @@ public class GoblinFear implements SpecialRule {
     @Override
     public CombatOutcome executeRule(Card source, Card target) {
         if (!source.isSpell() && !target.isSpell() && source.getTag() == MonsterTag.Dragon && target.getTag() == MonsterTag.Goblin) {
-            return new CombatOutcome(target.getName() + " was too afraid to fight " + source.getName(), source, target);
+            return new CombatOutcome("/l was too afraid to fight /w", source, target);
         }
         return null;
     }

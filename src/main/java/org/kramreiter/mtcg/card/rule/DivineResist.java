@@ -7,7 +7,7 @@ public class DivineResist implements SpecialRule {
     @Override
     public CombatOutcome executeRule(Card source, Card target) {
         if (!source.isSpell() && target.isSpell() && source.getTag() == MonsterTag.Divine && CardManager.computeWeaknessMultiplier(target.getCardType(), source.getCardType()) > 1.1) {
-            return new CombatOutcome(source.getName() + "'s divine protection saved it from the effect of " + source.getName() + ".", source, target);
+            return new CombatOutcome("/w's divine protection saved it from the effect of /l", source, target);
         }
         return null;
     }

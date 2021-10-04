@@ -6,8 +6,7 @@ public class WizardControl implements SpecialRule {
     @Override
     public CombatOutcome executeRule(Card source, Card target) {
         if (!source.isSpell() && !target.isSpell() && source.getTag() == MonsterTag.Wizard && target.getTag() == MonsterTag.Ork) {
-            return new CombatOutcome(target.getName() + "'s every move can be controlled by "
-                    + source.getName() + "\nTheir \"fight\" was very one-sided", source, target);
+            return new CombatOutcome("/l's every move can be controlled by /w\nTheir \"fight\" was very one-sided", source, target);
         }
         return null;
     }

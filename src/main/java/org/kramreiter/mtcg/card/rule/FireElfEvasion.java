@@ -9,7 +9,7 @@ public class FireElfEvasion implements SpecialRule {
     @Override
     public CombatOutcome executeRule(Card source, Card target) {
         if (!source.isSpell() && !target.isSpell() && source.getTag() == MonsterTag.FireElf && target.getTag() == MonsterTag.Dragon) {
-            return new CombatOutcome(source.getName() + " easily dodged the attacks of " + target.getName(), source, target);
+            return new CombatOutcome("/w easily dodged the attacks of /l", source, target);
         }
         return null;
     }
