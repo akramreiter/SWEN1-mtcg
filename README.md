@@ -2,7 +2,7 @@
 
 MTCG is an exploitative gacha game with no substantial gameplay developed by TotallyRealGamesCompanyExploitativeGames. There aren't even marketable characters with cute artworks, just rng-heavy mechanics and a fake currency economy. That's because adding art would increase effort and since we are efficient developers, we decided to concentrate our efforts on the parts that make us money.
 
-Gambling mechanics are not yet implemented, but the odds for pulls are already there. We here at TotallyRealGamesCompanyExploitativeGames take our job seriously and always have our priorities straight. After all, the goal is to extort as much money out of our customers. Wait... shouldn't we prioritize microtransactions if that's our top priority?
+Gambling mechanics are not yet implemented, but the odds for pulls are already there. We here at TotallyRealGamesCompanyExploitativeGames take our job seriously and always have our priorities straight. After all, the goal is to extort as much money out of our customers. Wait... shouldn't we implement microtransactions first if that's our top priority?
 
 Current feature list:
 
