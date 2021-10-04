@@ -16,4 +16,14 @@ public enum CardType {
             default -> Normal;
         };
     }
+
+    public String toString() {
+        return switch (this) {
+            case Normal -> "Normal";
+            case Water -> "Water";
+            case Fire -> "Fire";
+            case Earth -> "Earth";
+            case Air -> "Air";
+        };
+    }
 }

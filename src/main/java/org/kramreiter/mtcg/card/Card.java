@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 public abstract class Card implements Cloneable {
     protected int baseStrength;
-    @Setter
     protected int strength;
+    @Setter
     protected CardType cardType;
     protected boolean spell;
     protected String name;
@@ -20,6 +20,7 @@ public abstract class Card implements Cloneable {
      */
     protected Rarity rarity;
     protected UniqueEffect effect;
+    @Setter
     protected MonsterTag tag;
     @Setter
     protected String customWin;
@@ -30,5 +31,11 @@ public abstract class Card implements Cloneable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    public void setStrength(int str) {
+        this.strength = str;
+        if (this.strength < 0) this.strength = 0;
     }
 }

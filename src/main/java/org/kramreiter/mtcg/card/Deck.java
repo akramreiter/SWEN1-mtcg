@@ -35,7 +35,15 @@ public class Deck {
     public Deck clone() {
         List<Card> list = new ArrayList<>();
         for (Card c : getCards()) {
-            list.add(c.clone())
+            list.add(c.clone());
         }
+        Deck deck;
+        try {
+            deck = (Deck) super.clone();
+        } catch (CloneNotSupportedException e) {
+            deck = new Deck();
+        }
+        deck.cards = list.toArray(new Card[0]);
+        return deck;
     }
 }
