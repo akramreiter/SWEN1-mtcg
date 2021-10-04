@@ -8,7 +8,7 @@ Current feature list:
 
 - Cards that can be defined on mass through CSV files. Gotta fill up those common and rare rosters with trash no one wants to use.
 - Effects that can be triggered on game start, before and after combat. Mostly reserved for legendary and epic cards. ~~We want your pulls without epics or legendaries to feel worthless to increase the dopamine rush from good pulls.~~
-- Custom rules for interaction between different monster types, including such fun mechanics such as Undead monsters being instantly burned by Fire spells.
+- Custom rules for interaction between different monster types, including fun mechanics such as Undead monsters being instantly burned by Fire spells.
 
 Disclaimer: TotallyRealGamesCompanyExploitativeGames doesn't exist and this software doesn't include microtransactions. SWEN MTCG is a project by ??? Kramreiter.
 
