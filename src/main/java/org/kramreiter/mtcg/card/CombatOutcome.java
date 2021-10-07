@@ -25,7 +25,7 @@ public class CombatOutcome {
         if (this.message.contains("/w")) {
             int winnerStr = winner.getStrength();
             if (winner.isSpell()) {
-                winnerStr *= CardManager.computeWeaknessMultiplier(winner.getCardType(), loser.getCardType());
+                winnerStr *= RuleManager.computeWeaknessMultiplier(winner.getCardType(), loser.getCardType());
             }
             String winnerString = winner.getName() + "(strength: " + winnerStr + "; type: " + winner.getCardType().toString() + ")";
             this.message = this.message.replaceAll("/w", winnerString);
@@ -33,7 +33,7 @@ public class CombatOutcome {
         if (this.message.contains("/l")) {
             int loserStr = winner.getStrength();
             if (loser.isSpell()) {
-                loserStr *= CardManager.computeWeaknessMultiplier(loser.getCardType(), winner.getCardType());
+                loserStr *= RuleManager.computeWeaknessMultiplier(loser.getCardType(), winner.getCardType());
             }
             String loserString = loser.getName() + "(strength: " + loserStr + "; type: " + loser.getCardType().toString() + ")";
             this.message = this.message.replaceAll("/l", loserString);

@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import org.kramreiter.mtcg.card.rule.*;
 
-public class CardManager {
+public class RuleManager {
     @Getter()
     private static SpecialRule[] ruleset = initiateRuleset();
 

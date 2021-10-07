@@ -22,13 +22,13 @@ public enum MonsterTag {
 
     public static String getRuleEffects(MonsterTag tag) {
         if (tag == null) return "Card has no tag, no special rules apply";
-        String out = "";
-        for (SpecialRule rule : CardManager.getRuleset()) {
+        StringBuilder out = new StringBuilder();
+        for (SpecialRule rule : RuleManager.getRuleset()) {
             if (Arrays.asList(rule.getAffectedTags()).contains(tag)) {
-                if (out.length() < 1) out += "\n";
-                out += rule.getEffectDescription();
+                if (out.length() < 1) out.append("\n");
+                out.append(rule.getEffectDescription());
             }
         }
-        return out;
+        return out.toString();
     }
 }
