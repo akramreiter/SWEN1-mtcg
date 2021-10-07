@@ -3,6 +3,7 @@ package org.kramreiter.mtcg.card.effect;
 import org.kramreiter.mtcg.card.*;
 
 public class GearUp implements UniqueEffect {
+    private static final int SPEARSTR = 40;
 
     @Override
     public EffectTime getEffectTime() {
@@ -12,7 +13,7 @@ public class GearUp implements UniqueEffect {
     @Override
     public String executeEffect(Card self, Card opponent, Deck selfDeck, Deck opponentDeck, CombatOutcome prevOutcome) {
         selfDeck.removeCard(self);
-        Card spear = new CardSpell("Spear of Justice", 40, CardType.Normal, true, Rarity.Legendary, null);
+        Card spear = new CardSpell("Spear of Justice", SPEARSTR, CardType.Normal, true, Rarity.Legendary, null);
         selfDeck.addCards(new Card[] {
                 spear.clone(),
                 spear.clone(),
@@ -23,6 +24,6 @@ public class GearUp implements UniqueEffect {
 
     @Override
     public String getDescription() {
-        return "Effect: Gear Up\nAfter combat -> add 3 Spears of Justice (strength 40) to deck\nA spear for every occasion";
+        return "Effect: Gear Up\nAfter combat -> add 3 Spears of Justice (strength " + SPEARSTR + ") to deck\nA spear for every occasion";
     }
 }

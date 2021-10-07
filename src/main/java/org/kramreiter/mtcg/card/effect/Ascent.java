@@ -3,6 +3,7 @@ package org.kramreiter.mtcg.card.effect;
 import org.kramreiter.mtcg.card.*;
 
 public class Ascent implements UniqueEffect {
+    private static final int ASCENTSTR = 20;
 
     @Override
     public EffectTime getEffectTime() {
@@ -13,7 +14,7 @@ public class Ascent implements UniqueEffect {
     public String executeEffect(Card self, Card opponent, Deck selfDeck, Deck opponentDeck, CombatOutcome prevOutcome) {
         for (Card c : selfDeck.getCards()) {
             if (c.isSpell() && c.getCardType() == CardType.Air) {
-                c.setStrength(c.getStrength() + 20);
+                c.setStrength(c.getStrength() + ASCENTSTR);
             }
         }
         return "The Archmage of Winds empowered air spells";
@@ -21,6 +22,6 @@ public class Ascent implements UniqueEffect {
 
     @Override
     public String getDescription() {
-        return "Effect: Ascent\nGame start -> all air spells in your deck gain 20 Power\nThe storm becomes too strong to withstand";
+        return "Effect: Ascent\nGame start -> all air spells in your deck gain " + ASCENTSTR + " Power\nThe storm becomes too strong to withstand";
     }
 }

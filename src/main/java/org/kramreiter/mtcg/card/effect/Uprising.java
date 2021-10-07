@@ -3,6 +3,7 @@ package org.kramreiter.mtcg.card.effect;
 import org.kramreiter.mtcg.card.*;
 
 public class Uprising implements UniqueEffect {
+    private static final int UPRISESTR = 20;
 
     @Override
     public EffectTime getEffectTime() {
@@ -22,13 +23,13 @@ public class Uprising implements UniqueEffect {
     private void strengthenDeck(Deck deck) {
         for (Card c : deck.getCards()) {
             if (c.getTag() == MonsterTag.Goblin) {
-                c.setStrength(c.getStrength() + 20);
+                c.setStrength(c.getStrength() + UPRISESTR);
             }
         }
     }
 
     @Override
     public String getDescription() {
-        return "Effect: Uprising\nAfter combat -> if this card wins, all Goblins in both decks gain +20 strength\nNo longer just low-level monsters";
+        return "Effect: Uprising\nAfter combat -> if this card wins, all Goblins in both decks gain +" + UPRISESTR + " strength\nNo longer just low-level monsters";
     }
 }
