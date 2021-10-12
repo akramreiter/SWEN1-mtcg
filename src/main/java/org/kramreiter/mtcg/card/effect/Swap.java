@@ -1,12 +1,12 @@
 package org.kramreiter.mtcg.card.effect;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.kramreiter.mtcg.card.*;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class Swap implements UniqueEffect {
+
     @Override
     public EffectTime getEffectTime() {
         return EffectTime.BeforeCombat;
@@ -25,6 +25,10 @@ public class Swap implements UniqueEffect {
             if (opponentIndex >= opponentList.indexOf(opponent)) {
                 opponentIndex++;
             }
+            Card selfCard = selfDeck.removeCard(selfIndex);
+            Card opponentCard = opponentDeck.removeCard(opponentIndex);
+            selfDeck.addCard(opponentCard);
+            opponentDeck.addCard(selfCard);
             return "2 Cards changed sides";
         }
         return null;

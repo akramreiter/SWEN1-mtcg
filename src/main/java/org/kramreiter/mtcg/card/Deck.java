@@ -6,9 +6,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Getter
 public class Deck {
-    @Getter
-    protected Card[] cards = new Card[0];
+    protected Card[] cards;
+    protected String playerName;
+
+    public Deck(String[] sourceCards, String player) {
+        playerName = player;
+        List<Card> l = new ArrayList<>();
+        for (String card : sourceCards) {
+            l.add(CardFactory.getCard(card));
+        }
+        cards = l.toArray(new Card[0]);
+    }
+
+    protected Deck(String player) {
+        cards = new Card[0];
+        playerName = player;
+    }
+
     public void addCard(Card c) {
         List<Card> l = Arrays.asList(cards);
         l.add(c);
@@ -41,7 +57,7 @@ public class Deck {
         try {
             deck = (Deck) super.clone();
         } catch (CloneNotSupportedException e) {
-            deck = new Deck();
+            deck = new Deck(playerName);
         }
         deck.cards = list.toArray(new Card[0]);
         return deck;

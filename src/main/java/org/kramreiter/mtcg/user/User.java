@@ -17,6 +17,7 @@ public class User {
     protected String[] ownedCards;
     protected int elo;
     protected int payToWinCoins;
+    protected int freeRolls;
     protected boolean legendRoll;
 
     public User(String username) {

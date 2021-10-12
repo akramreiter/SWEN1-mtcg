@@ -38,4 +38,12 @@ public abstract class Card implements Cloneable {
         this.strength = str;
         if (this.strength < 0) this.strength = 0;
     }
+
+    public int computeStrengthAgainst(Card opponent) {
+        int res = getStrength();
+        if (isSpell()) {
+            res *= RuleManager.computeWeaknessMultiplier(getCardType(), opponent.getCardType());
+        }
+        return res;
+    }
 }
