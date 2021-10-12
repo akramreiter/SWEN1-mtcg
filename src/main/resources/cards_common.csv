@@ -1,2 +1,2 @@
-id,name,cardType,spell,strength,deck_value,rarity,tag,effect
-0001,Wizard Novice,0,0,15,5,0,5,none
+id,name,cardType,spell,strength,rarity,tag,effect
+0001,Wizard Novice,0,0,15,0,5,none
