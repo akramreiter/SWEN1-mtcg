@@ -4,6 +4,7 @@ import org.kramreiter.mtcg.card.*;
 
 public class GearUp implements UniqueEffect {
     private static final int SPEARSTR = 40;
+    private boolean available = true;
 
     @Override
     public EffectTime getEffectTime() {
@@ -12,6 +13,7 @@ public class GearUp implements UniqueEffect {
 
     @Override
     public String executeEffect(Card self, Card opponent, Deck selfDeck, Deck opponentDeck, CombatOutcome prevOutcome) {
+        if (!available) return null;
         selfDeck.removeCard(self);
         Card spear = new CardSpell("Spear of Justice", SPEARSTR, CardType.Normal, Rarity.Legendary, null);
         selfDeck.addCards(new Card[] {
@@ -19,6 +21,7 @@ public class GearUp implements UniqueEffect {
                 spear.clone(),
                 spear
         });
+        available = false;
         return "Spears have been added to the armory";
     }
 
