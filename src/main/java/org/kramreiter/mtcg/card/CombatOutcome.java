@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class CombatOutcome {
-    private static final String DEFAULTMSG = "/w won the fight against /l";
+    private static final String DEFAULT_MSG = "/w won the fight against /l";
 
     protected String message;
     protected boolean wasDraw;
@@ -16,7 +16,7 @@ public class CombatOutcome {
         } else if (winner.getCustomWin() != null) {
             this.message = winner.getCustomWin();
         } else {
-            this.message = DEFAULTMSG;
+            this.message = DEFAULT_MSG;
         }
         parseMessage(winner, loser);
         this.winner = winner;

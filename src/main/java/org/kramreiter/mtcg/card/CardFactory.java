@@ -15,6 +15,12 @@ public class CardFactory {
     private static final String FILE_LEGENDARY = "src/main/resources/cards_legendary.csv";
 
     public static Card getCard(String cardId) {
+        Card c;
+        for (Rarity r : new Rarity[] {Rarity.Common, Rarity.Rare, Rarity.Epic, Rarity.Legendary}) {
+            if ((c = getCard(cardId, r)) != null) {
+                return c;
+            }
+        }
         return null;
     }
 

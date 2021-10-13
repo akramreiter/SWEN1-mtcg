@@ -20,4 +20,9 @@ public class Sharpen implements UniqueEffect {
     public String getDescription() {
         return "Effect: Sharpen\nBefore combat -> gain " + SHARPENSTR + " strength\nDon't cut yourself on that edge";
     }
+
+    @Override
+    public String getName() {
+        return "Sharpen";
+    }
 }

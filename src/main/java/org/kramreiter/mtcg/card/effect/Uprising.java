@@ -32,4 +32,9 @@ public class Uprising implements UniqueEffect {
     public String getDescription() {
         return "Effect: Uprising\nAfter combat -> if this card wins, all Goblins in both decks gain +" + UPRISESTR + " strength\nNo longer just low-level monsters";
     }
+
+    @Override
+    public String getName() {
+        return "Uprising";
+    }
 }

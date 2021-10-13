@@ -20,4 +20,9 @@ public class WornOut implements UniqueEffect {
     public String getDescription() {
         return "Effect: Worn Out\nAfter combat -> this card loses " + WORNNERF + " strength\nThe Champion is past their peak";
     }
+
+    @Override
+    public String getName() {
+        return "Worn Out";
+    }
 }

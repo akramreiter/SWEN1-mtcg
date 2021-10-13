@@ -42,8 +42,32 @@ public abstract class Card implements Cloneable {
     public int computeStrengthAgainst(Card opponent) {
         int res = getStrength();
         if (isSpell()) {
-            res *= RuleManager.computeWeaknessMultiplier(getCardType(), opponent.getCardType());
+            res = (int) (res * RuleManager.computeWeaknessMultiplier(getCardType(), opponent.getCardType()));
         }
         return res;
+    }
+
+    public String toString() {
+        StringBuilder out = new StringBuilder();
+        out.append(getName()).append(" (");
+        if (isSpell()) {
+            out.append("Spell");
+        } else {
+            out.append("Monster");
+            if (getTag() != null) {
+                out.append(" - ").append(getTag());
+            }
+        }
+        out.append(") [strength: ").
+                append(getBaseStrength()).
+                append("] {Rarity: ").
+                append(getRarity()).
+                append("; Type: ").
+                append(getCardType());
+        if (getEffect() != null) {
+            out.append("; Effect: ").append(getEffect().getName());
+        }
+        out.append("}");
+        return out.toString();
     }
 }

@@ -21,4 +21,9 @@ public class Curse implements UniqueEffect {
     public String getDescription() {
         return "Effect: Curse\nBefore combat -> monsters this card fights against become undead\n";
     }
+
+    @Override
+    public String getName() {
+        return "Blessing";
+    }
 }

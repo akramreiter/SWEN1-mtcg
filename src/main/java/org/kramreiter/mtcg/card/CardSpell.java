@@ -9,7 +9,7 @@ public class CardSpell extends Card {
         this.spell = true;
         this.cardType = CardType.typeFromNumber(cardType);
         this.rarity = Rarity.rarityFromNumber(rarity);
-        this.effect = null;
+        this.effect = EffectFactory.getEffectFromString(effect);
     }
     public CardSpell(String name, int baseStrength, CardType cardType, Rarity rarity, UniqueEffect effect) {
         this.name = name;

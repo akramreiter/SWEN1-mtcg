@@ -34,4 +34,9 @@ public class Extinction implements UniqueEffect {
     public String getDescription() {
         return "Effect: Extinction\nAfter combat -> if used against a monster with a tag, all monsters with the same tag in both decks are destroyed\nAnother day, another world-ending event";
     }
+
+    @Override
+    public String getName() {
+        return "Extinction";
+    }
 }

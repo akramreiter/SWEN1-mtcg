@@ -22,4 +22,9 @@ public class Scorch implements UniqueEffect {
     public String getDescription() {
         return "Effect: Hellfire\nBefore combat -> all enemy cards lose " + SCORCHNERF + " strength\nSome just want to see the world burn";
     }
+
+    @Override
+    public String getName() {
+        return "Scorch";
+    }
 }

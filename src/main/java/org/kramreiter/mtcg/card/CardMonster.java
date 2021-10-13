@@ -9,7 +9,7 @@ public class CardMonster extends Card {
         this.spell = false;
         this.cardType = CardType.typeFromNumber(cardType);
         this.rarity = Rarity.rarityFromNumber(rarity);
-        this.effect = null;
+        this.effect = EffectFactory.getEffectFromString(effect);
         this.tag = MonsterTag.tagFromNumber(tag);
     }
     public CardMonster(String name, int baseStrength, CardType cardType, Rarity rarity, UniqueEffect effect, MonsterTag tag) {

@@ -24,4 +24,9 @@ public class Ascent implements UniqueEffect {
     public String getDescription() {
         return "Effect: Ascent\nGame start -> all air spells in your deck gain " + ASCENTSTR + " Power\nThe storm becomes too strong to withstand";
     }
+
+    @Override
+    public String getName() {
+        return "Ascent";
+    }
 }

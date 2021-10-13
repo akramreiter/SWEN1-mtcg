@@ -24,4 +24,9 @@ public class GreatWave implements UniqueEffect {
     public String getDescription() {
         return "Effect: Great Wave\nBefore combat -> all Water monsters in your deck gain + " + WAVESTR + "\nThe flood can't be held back";
     }
+
+    @Override
+    public String getName() {
+        return "Great Wave";
+    }
 }

@@ -22,4 +22,9 @@ public class SpellThief implements UniqueEffect {
     public String getDescription() {
         return "Effect: Spell-Thief\nAfter Combat -> if this card wins against a spell, add a copy of it to your deck\nWe do a little plagiarism...";
     }
+
+    @Override
+    public String getName() {
+        return "Spell-Thief";
+    }
 }

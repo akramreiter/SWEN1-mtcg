@@ -21,4 +21,9 @@ public class Incinerate implements UniqueEffect {
     public String getDescription() {
         return "Effect: Incinerate\nAfter combat -> a random card in your opponent's deck loses " + INCINERATENERF + " strength\nThe dragon's flame burn more than just their target";
     }
+
+    @Override
+    public String getName() {
+        return "Incinerate";
+    }
 }

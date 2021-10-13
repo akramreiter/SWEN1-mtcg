@@ -16,6 +16,11 @@ public class SelfSeal implements UniqueEffect {
 
     @Override
     public String getDescription() {
-        return "Effect: Self Seal\nAfter combat -> sets own strength to 0\nSometimes you only need one shot...";
+        return "Effect: Self-Seal\nAfter combat -> sets own strength to 0\nSometimes you only need one shot...";
+    }
+
+    @Override
+    public String getName() {
+        return "Self-Seal";
     }
 }

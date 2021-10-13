@@ -24,4 +24,9 @@ public class Blessing implements UniqueEffect {
     public String getDescription() {
         return "Effect: Blessing\nAfter combat -> all monsters in your deck gain +" + BLESSSTR + " strength\n";
     }
+
+    @Override
+    public String getName() {
+        return "Blessing";
+    }
 }

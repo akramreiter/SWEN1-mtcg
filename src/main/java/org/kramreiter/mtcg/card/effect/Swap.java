@@ -17,14 +17,8 @@ public class Swap implements UniqueEffect {
         List<Card> selfList = Arrays.asList(selfDeck.getCards());
         List<Card> opponentList = Arrays.asList(opponentDeck.getCards());
         if (selfList.size() > 1 && opponentList.size() > 1) {
-            int selfIndex = (int) (Math.random() * (selfList.size()));
-            if (selfIndex >= selfList.indexOf(self)) {
-                selfIndex++;
-            }
-            int opponentIndex = (int) (Math.random() * (opponentList.size()));
-            if (opponentIndex >= opponentList.indexOf(opponent)) {
-                opponentIndex++;
-            }
+            int selfIndex = getRandomIndex(selfList, self);
+            int opponentIndex = getRandomIndex(opponentList, opponent);
             Card selfCard = selfDeck.removeCard(selfIndex);
             Card opponentCard = opponentDeck.removeCard(opponentIndex);
             selfDeck.addCard(opponentCard);
@@ -34,8 +28,21 @@ public class Swap implements UniqueEffect {
         return null;
     }
 
+    private int getRandomIndex(List<Card> deck, Card self) {
+        int index = (int) (Math.random() * (deck.size() - 1));
+        if (index >= deck.indexOf(self)) {
+            index++;
+        }
+        return index;
+    }
+
     @Override
     public String getDescription() {
-        return null;
+        return "Effect: Swap\nBefore combat -> 2 random cards other than the ones in combat will be swapped\nWe do a little trolling";
+    }
+
+    @Override
+    public String getName() {
+        return "Swap";
     }
 }
