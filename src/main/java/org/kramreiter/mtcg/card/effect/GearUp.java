@@ -16,6 +16,7 @@ public class GearUp implements UniqueEffect {
         if (!available) return null;
         selfDeck.removeCard(self);
         Card spear = new CardSpell("Spear of Justice", SPEARSTR, CardType.Normal, Rarity.Legendary, null);
+        spear.setOwnerName(self.getOwnerName());
         selfDeck.addCards(new Card[] {
                 spear.clone(),
                 spear.clone(),
@@ -27,7 +28,7 @@ public class GearUp implements UniqueEffect {
 
     @Override
     public String getDescription() {
-        return "Effect: Gear Up\nAfter combat -> add 3 Spears of Justice (strength " + SPEARSTR + ") to deck\nA spear for every occasion";
+        return "Effect: Gear Up\nAfter combat -> add 3 Spears of Justice (strength " + SPEARSTR + ") to deck\nA spear for every occasion (once per game)";
     }
 
     @Override

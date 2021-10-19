@@ -17,6 +17,8 @@ public abstract class Card implements Cloneable {
     protected MonsterTag tag;
     @Setter
     protected String customWin;
+    @Setter
+    protected String ownerName;
 
     public Card clone() {
         try {

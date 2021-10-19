@@ -41,12 +41,12 @@ public class CombatOutcome {
         if (winner == null || loser == null) return;
         if (this.message.contains("/w")) {
             int winnerStr = winner.computeStrengthAgainst(loser);
-            String winnerString = winner.getName() + "(strength: " + winnerStr + "; type: " + winner.getCardType().toString() + ")";
+            String winnerString = winner.getName() + " {owner: " + winner.getOwnerName() + "; strength: " + winnerStr + "; type: " + winner.getCardType().toString() + "}";
             this.message = this.message.replaceAll("/w", winnerString);
         }
         if (this.message.contains("/l")) {
             int loserStr = loser.computeStrengthAgainst(winner);
-            String loserString = loser.getName() + "(strength: " + loserStr + "; type: " + loser.getCardType().toString() + ")";
+            String loserString = loser.getName() + " {owner: " + loser.getOwnerName() + "; strength: " + loserStr + "; type: " + loser.getCardType().toString() + "}";
             this.message = this.message.replaceAll("/l", loserString);
         }
     }

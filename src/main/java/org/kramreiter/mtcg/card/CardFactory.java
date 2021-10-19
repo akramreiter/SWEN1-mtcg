@@ -79,7 +79,7 @@ public class CardFactory {
             case "3002" -> "/l couldn't withstand the /w";
             case "3003" -> "/l was burned to a crisp by /w";
             case "3004" -> "/w swiftly removed /l from the battlefield";
-            case "3005" -> "A mass-/w event befell /l";
+            case "3005" -> "/l was completely crushed by /w";
             case "3006" -> "/w somehow, miraculously won against /l";
             case "3007" -> "/w slammed down on /l with its gargantuan tentacles";
             case "3008" -> "/l was afflicted by /w's curse";

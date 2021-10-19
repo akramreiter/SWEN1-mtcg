@@ -11,7 +11,6 @@ import org.kramreiter.mtcg.card.Rarity;
 @Setter
 public class User {
     protected String username;
-    @Setter(AccessLevel.NONE)
     protected String[] deckCards;
     @Setter(AccessLevel.NONE)
     protected String[] ownedCards;

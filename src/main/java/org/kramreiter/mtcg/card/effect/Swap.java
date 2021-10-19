@@ -20,7 +20,9 @@ public class Swap implements UniqueEffect {
             int selfIndex = getRandomIndex(selfList, self);
             int opponentIndex = getRandomIndex(opponentList, opponent);
             Card selfCard = selfDeck.removeCard(selfIndex);
+            selfCard.setOwnerName(opponent.getOwnerName());
             Card opponentCard = opponentDeck.removeCard(opponentIndex);
+            opponentCard.setOwnerName(selfCard.getOwnerName());
             selfDeck.addCard(opponentCard);
             opponentDeck.addCard(selfCard);
             return "2 Cards changed sides";
