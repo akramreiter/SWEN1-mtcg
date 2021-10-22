@@ -7,7 +7,6 @@ public enum MonsterTag {
 
     public static MonsterTag tagFromNumber(int tag) {
         return switch (tag) {
-            case 0 -> Goblin;
             case 1 -> Dragon;
             case 2 -> Knight;
             case 3 -> Kraken;
@@ -16,6 +15,7 @@ public enum MonsterTag {
             case 6 -> Undead;
             case 7 -> Divine;
             case 8 -> FireElf;
+            case 9 -> Goblin;
             default -> null;
         };
     }

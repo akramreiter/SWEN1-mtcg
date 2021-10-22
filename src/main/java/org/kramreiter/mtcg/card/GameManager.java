@@ -82,6 +82,11 @@ public class GameManager {
                 break;
             }
         }
+        SpecialRule[] rules = RuleManager.getRuleset();
+        for (SpecialRule rule : rules) {
+            if ((res = rule.executeRule(p1Card, p2Card)) != null) break;
+            if ((res = rule.executeRule(p2Card, p1Card)) != null) break;
+        }
         if (res == null) {
             Card[] outcome = selectWinner(p1Card, p2Card);
             if (outcome != null) {

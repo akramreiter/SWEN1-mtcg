@@ -20,6 +20,16 @@ public class EffectFactory {
             case "Swap" -> new Swap();
             case "Uprising" -> new Uprising();
             case "WornOut" -> new WornOut();
+            case "Gamble" -> new Gamble();
+            case "MorningRoutine" -> new MorningRoutine();
+            case "CollateralDamage" -> new CollateralDamage();
+            case "Inconsistency" -> new Inconsistency();
+            case "RevolutionarySpirit" -> new RevolutionarySpirit();
+            case "OrkImpact" -> new OrkImpact();
+            case "BlazingAura" -> new BlazingAura();
+            case "GatherUndead" -> new GatherUndead();
+            case "DriedLands" -> new DriedLands();
+            case "Nullify" -> new Nullify();
             default -> null;
         };
     }

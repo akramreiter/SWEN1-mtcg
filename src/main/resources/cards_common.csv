@@ -1,2 +1,33 @@
 id,name,cardType,spell,strength,rarity,tag,effect
 0001,Burning Wizard Novice,2,0,15,0,5,none
+0002,Lowly Goblin,3,0,21,0,9,none
+0003,Infernal Dragon Hatchling,2,0,17,0,1,none
+0004,Small Gust,4,1,15,0,0,none
+0005,Champion's Squire,0,0,25,0,2,none
+0006,Roast,2,1,17,0,0,none
+0007,Magical Punch,0,1,22,0,0,none
+0008,Rock Throw,3,1,18,0,0,none
+0009,Commoner,0,0,17,0,0,none
+0010,Noble,0,0,13,0,0,none
+0011,Moody Farmer,0,0,24,0,0,none
+0012,Magical Kick,0,1,23,0,0,none
+0013,Splash,1,1,15,0,0,none
+0014,Totally Legal Torrent,1,1,19,0,0,none
+0015,Light Breeze,4,1,16,0,0,none
+0016,Pebble Catapult,3,1,15,0,0,none
+0017,Magical Campfire,2,1,16,0,0,none
+0018,Severed Kraken Tentacle,1,0,2,0,3,none
+0019,Elven Scoundrel,2,0,17,0,8,none
+0020,Soaked Wizard Novice,1,0,15,0,5,none
+0021,Untrained Ork Cadet,3,0,16,0,4,none
+0022,Reliable Ork Cadet,3,0,21,0,4,none
+0023,Sealed Light,0,0,10,0,7,none
+0024,Skeletony the Skeleton,0,0,18,0,6,none
+0025,Sun-exposed Zombie,2,0,22,0,6,none
+0026,Karp,1,0,15,0,0,none
+0027,Wild Chicken,4,0,18,0,0,none
+0028,Evil Overlord of Moles,3,0,17,0,0,none
+0029,Roasted Goblin,2,0,23,0,9,none
+0030,Unholy Winged Goblin,4,0,18,0,9,none
+0031,Heavily Armed Ork Cadet,0,0,19,0,4,none
+0032,Salmon,1,0,16,0,0,none

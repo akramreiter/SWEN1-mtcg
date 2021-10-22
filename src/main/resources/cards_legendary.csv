@@ -1,10 +1,10 @@
 id,name,cardType,spell,strength,rarity,tag,effect
-3001,Self-Destruct-Inator,0,1,999,3,-1,SelfSeal
-3002,Grand Flood,1,1,65,3,-1,GreatWave
-3003,Hellfire,2,1,55,3,-1,Scorch
-3004,Chaotic Stormwinds,4,1,75,3,-1,Swap
-3005,World-ending Collapse,3,1,60,3,-1,Extinction
-3006,Summoned Armory,0,1,10,3,-1,GearUp
+3001,Self-Destruct-Inator,0,1,999,3,0,SelfSeal
+3002,Grand Flood,1,1,65,3,0,GreatWave
+3003,Hellfire,2,1,55,3,0,Scorch
+3004,Chaotic Stormwinds,4,1,75,3,0,Swap
+3005,World-ending Collapse,3,1,60,3,0,Extinction
+3006,Summoned Armory,0,1,10,3,0,GearUp
 3007,Ancient Kraken,1,0,25,3,3,SpellThief
 3008,Nameless Corpse,3,0,40,3,6,Curse
 3009,Archmage of Winds,4,0,80,3,5,Ascent
@@ -12,4 +12,4 @@ id,name,cardType,spell,strength,rarity,tag,effect
 3011,The Ascended,4,0,50,3,7,Blessing
 3012,Lv20 Retired Champion,0,0,120,3,2,WornOut
 3013,Ancient Infernal Dragon,2,0,90,3,1,Incinerate
-3014,Another Regular Goblin,3,0,60,3,0,Uprising
+3014,Another Regular Goblin,3,0,60,3,9,Uprising

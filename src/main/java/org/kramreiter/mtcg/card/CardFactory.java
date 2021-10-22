@@ -5,16 +5,23 @@ import com.opencsv.exceptions.CsvValidationException;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Map;
+import java.util.ArrayList;
 
 public class CardFactory {
-    private static final String FILE_COMMON = "src/main/resources/cards_common.csv";
-    private static final String FILE_RARE = "src/main/resources/cards_rare.csv";
-    private static final String FILE_EPIC = "src/main/resources/cards_epic.csv";
-    private static final String FILE_LEGENDARY = "src/main/resources/cards_legendary.csv";
+    private final String FILE_COMMON = "src/main/resources/cards_common.csv";
+    private final String FILE_RARE = "src/main/resources/cards_rare.csv";
+    private final String FILE_EPIC = "src/main/resources/cards_epic.csv";
+    private final String FILE_LEGENDARY = "src/main/resources/cards_legendary.csv";
 
-    public static Card getCard(String cardId) {
+    private static final CardFactory singleton = new CardFactory();
+
+    private CardFactory() {}
+
+    public static CardFactory getInstance() {
+        return singleton;
+    }
+
+    public Card getCard(String cardId) {
         Card c;
         for (Rarity r : new Rarity[] {Rarity.Common, Rarity.Rare, Rarity.Epic, Rarity.Legendary}) {
             if ((c = getCard(cardId, r)) != null) {
@@ -24,7 +31,7 @@ public class CardFactory {
         return null;
     }
 
-    public static Card getCard(String cardId, Rarity rarity) {
+    public Card getCard(String cardId, Rarity rarity) {
         String filename = fileFromRarity(rarity);
         try {
             Card out;
@@ -60,11 +67,25 @@ public class CardFactory {
         return null;
     }
 
-    public static Card getRandomCardForRarity(Rarity rarity) {
+    public String getRandomCardIdForRarity(Rarity rarity) {
+        String filename = fileFromRarity(rarity);
+        try {
+            ArrayList<String> options = new ArrayList<>();
+            String[] card;
+            CSVReaderHeaderAware reader = new CSVReaderHeaderAware(new FileReader(filename));
+            while ((card = reader.readNext()) != null) {
+                if (card.length > 0 && card[0].trim().length() > 0) {
+                    options.add(card[0]);
+                }
+            }
+            return options.get((int)(Math.random() * options.size()));
+        } catch (IOException | CsvValidationException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
-    private static String fileFromRarity(Rarity rarity) {
+    private String fileFromRarity(Rarity rarity) {
         return switch (rarity) {
             case Common -> FILE_COMMON;
             case Rare -> FILE_RARE;
@@ -73,7 +94,7 @@ public class CardFactory {
         };
     }
 
-    private static String getCustomWinForId(String cardId) {
+    private String getCustomWinForId(String cardId) {
         return switch (cardId) {
             case "3001" -> "/w spontaneously exploded, taking /l with it";
             case "3002" -> "/l couldn't withstand the /w";

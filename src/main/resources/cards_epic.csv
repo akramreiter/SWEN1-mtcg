@@ -1,2 +1,21 @@
 id,name,cardType,spell,strength,rarity,tag,effect
-2001,Fireball,2,1,40,2,-1,none
+2001,Fireball,2,1,44,2,0,none
+2002,Mad Gambler,0,0,35,2,0,Gamble
+2003,Magic Bullet,2,1,125,2,0,SelfSeal
+2004,Sleepy Whale,1,0,38,2,0,none
+2005,Elven Edgelord,2,0,0,2,8,Sharpen
+2006,Grown Infernal Dragon,2,0,35,2,1,none
+2007,Kraken Offspring,1,0,20,2,3,none
+2008,Army Instructor,0,0,28,2,2,MorningRoutine
+2009,Definitely Illegal Torrent,1,1,39,2,0,none
+2010,Earthquake,3,1,62,2,0,CollateralDamage
+2011,Concentrated Stormwinds,4,1,41,2,0,none
+2012,Glitch,0,1,0,2,0,Inconsistency
+2013,Goblin Folk Hero,3,0,38,2,9,RevolutionarySpirit
+2014,Ork Catapult,4,1,15,2,0,OrkImpact
+2015,Arcane Pyromaniac,2,0,35,2,5,BlazingAura
+2016,Reanimated Dragon Skeleton,3,0,43,2,6,none
+2017,Shifting Grounds,3,1,30,2,0,GatherUndead
+2018,Drought,2,1,37,2,0,DriedLands
+2019,Temporal Storm,4,1,36,2,0,Nullify
+2020,Everburning Torch,2,0,40,2,7,none

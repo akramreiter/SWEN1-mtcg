@@ -28,7 +28,7 @@ public class GearUp implements UniqueEffect {
 
     @Override
     public String getDescription() {
-        return "Effect: Gear Up\nAfter combat -> add 3 Spears of Justice (strength " + SPEARSTR + ") to deck\nA spear for every occasion (once per game)";
+        return "Effect: Gear Up\nAfter combat -> add 3 Spears of Justice (strength " + SPEARSTR + ") to deck (once per game)\nA spear for every occasion";
     }
 
     @Override

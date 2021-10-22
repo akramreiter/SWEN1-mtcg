@@ -15,7 +15,7 @@ public class Deck {
         playerName = player;
         List<Card> l = new ArrayList<>();
         for (String card : sourceCards) {
-            Card c = CardFactory.getCard(card);
+            Card c = CardFactory.getInstance().getCard(card);
             c.setOwnerName(playerName);
             l.add(c);
         }
