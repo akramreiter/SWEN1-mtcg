@@ -1,5 +1,5 @@
 id,name,cardType,spell,strength,rarity,tag,effect
-2001,Fireball,2,1,44,2,0,none
+2001,Explosion,2,1,44,2,0,none
 2002,Mad Gambler,0,0,35,2,0,Gamble
 2003,Magic Bullet,2,1,125,2,0,SelfSeal
 2004,Sleepy Whale,1,0,38,2,0,none

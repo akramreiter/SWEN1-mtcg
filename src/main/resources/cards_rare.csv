@@ -1,3 +1,27 @@
 id,name,cardType,spell,strength,rarity,tag,effect
-1001,Sunrise,2,1,5,1,0,CleanseUndead
-1002,
+1001,Fireball,2,1,32,1,0,none
+1002,Firewall,2,1,27,1,0,none
+1003,Questionably Legal Torrent,1,1,31,1,0,none
+1004,Wave,1,1,28,1,0,none
+1005,Boulder Launch,3,1,33,1,0,none
+1006,Quicksand,3,1,26,1,0,none
+1007,Lightning Storm,4,1,30,1,0,none
+1008,Frigid Winds,4,1,29,1,0,none
+1009,Conjured Banhammer,0,1,35,1,0,none
+1010,Magical Takedown,0,1,25,1,0,none
+1011,Sunrise,2,1,5,1,0,CleanseUndead
+1012,Bring a Gun to a Card Fight,0,1,75,1,0,SelfSeal
+1013,Adult Wyvern,0,0,29,1,1,none
+1014,Young Storm Dragon,4,0,32,1,1,none
+1015,Amateur Dragonslayer,0,0,33,1,2,none
+1016,Knight of the Lit Empire,2,0,28,1,2,none
+1017,Ork Marine,1,0,31,1,4,none
+1018,Experienced Ork Infantry,3,0,27,1,4,none
+1019,Storm Wizard Apprentice,4,0,29,1,5,none
+1020,Surprisingly Sturdy Zombie,3,0,33,1,6,none
+1021,Elven Assassin,2,0,30,1,8,none
+1022,Dense Orb of Light,0,0,20,1,7,none
+1023,Goblin Raider,3,0,25,1,9,none
+1024,Mad Farmer,0,0,35,1,0,none
+1025,Big Catfish,1,0,32,1,0,none
+1026,Gargantuan Sandworm,3,0,34,1,0,none
