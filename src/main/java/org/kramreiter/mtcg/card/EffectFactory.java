@@ -30,6 +30,7 @@ public class EffectFactory {
             case "GatherUndead" -> new GatherUndead();
             case "DriedLands" -> new DriedLands();
             case "Nullify" -> new Nullify();
+            case "CleanseUndead" -> new CleanseUndead();
             default -> null;
         };
     }

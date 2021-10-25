@@ -5,7 +5,7 @@ import org.kramreiter.mtcg.card.*;
 public class Nullify implements UniqueEffect {
     @Override
     public EffectTime getEffectTime() {
-        return null;
+        return EffectTime.AfterCombat;
     }
 
     @Override

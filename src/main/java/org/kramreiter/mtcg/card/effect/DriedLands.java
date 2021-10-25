@@ -7,7 +7,7 @@ public class DriedLands implements UniqueEffect {
 
     @Override
     public EffectTime getEffectTime() {
-        return null;
+        return EffectTime.AfterCombat;
     }
 
     @Override

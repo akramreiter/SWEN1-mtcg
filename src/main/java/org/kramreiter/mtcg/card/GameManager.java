@@ -1,6 +1,4 @@
 package org.kramreiter.mtcg.card;
-
-import org.kramreiter.mtcg.card.*;
 import org.kramreiter.mtcg.user.User;
 
 import java.util.ArrayList;
@@ -20,6 +18,7 @@ public class GameManager {
         Deck player2Deck = new Deck(player2.getDeckCards(), player2.getUsername());
         ArrayList<String> outcomes = new ArrayList<>();
         outcomes.add("Ranked game between " + player1.getUsername() + " and " + player2.getUsername());
+        outcomes.add("Playing in " + mode + " mode");
 
         for (Card c : player1Deck.getCards()) {
             execEffect(player1Deck, player2Deck, outcomes, c, null, EffectTime.GameStart, null);

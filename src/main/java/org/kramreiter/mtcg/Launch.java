@@ -15,17 +15,18 @@ public class Launch {
 
         player1.setDeckCards(new String[] {
                 "3001",
-                "0025",
-                "0032",
-                "0008"
+                "2019",
+                "3012",
+                "2012"
         });
         player2.setDeckCards(new String[] {
-                "0015",
-                "3009",
-                "0004",
-                "0012"
+                "3006",
+                "3007",
+                "2014",
+                "2003"
         });
 
+        player1.setPayToWinCoins(100);
         while (player1.getPayToWinCoins() > 4) {
             System.out.println("opening pack");
             for (String c : player1.openPack()) {
@@ -51,17 +52,6 @@ public class Launch {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
-
-        Thread t = new Thread(new CommThread());
-        Thread t2 = new Thread(new CommThread());
-        t.start();
-        t2.start();
-        try {
-            t.join();
-            t2.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 }
