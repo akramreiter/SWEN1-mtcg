@@ -43,7 +43,7 @@ public class Launch {
                 e.printStackTrace();
             }
         }
-        System.out.println("\n\n\n");
+        System.out.println("\n\nP1 Elo: " + player1.getElo() + ", P2 Elo: " + player2.getElo() + "\n\n");
         game = GameManager.runGame(player1, player2, GameMode.Classic);
         for (String s : game) {
             System.out.println(s);
@@ -53,5 +53,6 @@ public class Launch {
                 e.printStackTrace();
             }
         }
+        System.out.println("\n\nP1 Elo: " + player1.getElo() + ", P2 Elo: " + player2.getElo());
     }
 }

@@ -30,7 +30,7 @@ Current feature list:
   - Cards that lose a fight are removed from play.
   - The game ends when one side has no cards remaining. If no winner is determined after the turn limit of 100, the player with the higher amount of cards in their deck wins. Though it's nearly impossible to hit that limit unless a situation where combat between any remaining cards results in a draw occurs. 
 
-- 
+- A ranking system that gives increased or decreased returns based on the players' current ranking. We don't want to kick the people who don't give us their cash while they're down.
 
 Disclaimer: TotallyRealGamesCompanyExploitativeGames doesn't exist and this software doesn't include microtransactions. SWEN MTCG is a project by ??? Kramreiter.
 

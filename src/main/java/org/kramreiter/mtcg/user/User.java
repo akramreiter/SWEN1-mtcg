@@ -13,7 +13,7 @@ public class User {
 
     protected String username;
     protected String[] deckCards;
-    @Setter(AccessLevel.NONE)
+    @Setter(AccessLevel.PROTECTED)
     protected String[] ownedCards;
     protected int elo;
     protected int payToWinCoins = 20;

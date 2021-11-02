@@ -1,0 +1,13 @@
+@startuml
+User -> GameService: request game
+GameService -> GameService: search opponent
+GameService -> GameManager: start game with User + Opponent
+GameManager -> GameManager: initialize decks
+    loop until 1 deck empty OR 100 times
+        GameManager -> GameManager: calculate turn
+    end
+GameManager -> GameManager: determine winner
+GameManager -> GameManager: adjustElo
+GameManager --> GameService: return game log
+GameService --> User: return game log
+@enduml

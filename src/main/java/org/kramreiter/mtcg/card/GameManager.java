@@ -52,13 +52,22 @@ public class GameManager {
         }
 
         if (player1Deck.getCards().length > player2Deck.getCards().length) {
-            outcomes.add(player1.getUsername() + " won against " + player2.getUsername() + " [" + player1Deck.getCards().length + ":" + player2Deck.getCards().length + "]");
+            eloAdjust(player1, player2, outcomes, player1Deck, player2Deck);
         } else if (player2Deck.getCards().length > player1Deck.getCards().length) {
-            outcomes.add(player2.getUsername() + " won against " + player1.getUsername() + " [" + player2Deck.getCards().length + ":" + player1Deck.getCards().length + "]");
+            eloAdjust(player2, player1, outcomes, player2Deck, player1Deck);
         } else {
             outcomes.add("The game between " + player1.getUsername() + " and " + player2.getUsername() + " ended in a draw");
         }
         return outcomes.toArray(new String[0]);
+    }
+
+    private static void eloAdjust(User winner, User loser, ArrayList<String> outcomes, Deck winnerDeck, Deck loserDeck) {
+        outcomes.add(winner.getUsername() + " won against " + loser.getUsername() + " [" + winnerDeck.getCards().length + ":" + loserDeck.getCards().length + "]");
+        int eloChange = winner.computeEloGainForWin(loser);
+        winner.adjustElo(eloChange);
+        loser.adjustElo(-eloChange);
+        outcomes.add(winner.getUsername() + ": " + winner.getElo() + "[+" + eloChange + "]; " + loser.getUsername() + ": " +
+                loser.getElo() + "[-" + eloChange + "]");
     }
 
     /**
