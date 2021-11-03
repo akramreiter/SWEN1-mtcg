@@ -66,13 +66,24 @@ public class User {
         return new String[0];
     }
 
+    /**
+     * Calculates elo gain when winning against the given opponent.
+     * If the difference between the opponent's elo and the user's own is lower than 100, it scales linearly up to *2.0.
+     * At a difference of 100 or above, the multiplier is determined by the value of the log10(diff) instead.
+     * This ensures a somewhat smooth curve for elo gain across the board
+     * diff 100 -> 2.0 multiplier
+     * diff 550 -> 3.0 multiplier
+     * diff 5050 -> 4.0 multiplier
+     * @param opponent User to compute gain against
+     * @return elo gain
+     */
     public int computeEloGainForWin(User opponent) {
         int diff = Math.abs(getElo() - opponent.getElo());
         double multiplier;
         if (diff < 100) {
             multiplier = 1.0 + (double) diff / 100;
         } else {
-            multiplier = Math.log10(diff);
+            multiplier = Math.log10(2 * diff - 100);
         }
         if (getElo() > opponent.getElo()) {
             multiplier = 1 / multiplier;
