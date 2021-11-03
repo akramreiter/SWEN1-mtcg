@@ -68,10 +68,12 @@ public class User {
 
     public int computeEloGainForWin(User opponent) {
         int diff = Math.abs(getElo() - opponent.getElo());
-        if (diff < 10) {
-            diff = 10;
+        double multiplier;
+        if (diff < 100) {
+            multiplier = 1.0 + (double) diff / 100;
+        } else {
+            multiplier = Math.log10(diff);
         }
-        double multiplier = Math.log10(diff);
         if (getElo() > opponent.getElo()) {
             multiplier = 1 / multiplier;
         }
