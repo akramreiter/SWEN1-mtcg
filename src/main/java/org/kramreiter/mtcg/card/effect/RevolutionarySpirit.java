@@ -14,7 +14,7 @@ public class RevolutionarySpirit implements UniqueEffect {
     public String executeEffect(Card self, Card opponent, Deck selfDeck, Deck opponentDeck, CombatOutcome prevOutcome) {
         for (Card c : selfDeck.getCards()) {
             if (c.getTag() == MonsterTag.Goblin) {
-                c.setStrength(c.getStrength() + BUFF_STR);
+                c.setPower(c.getPower() + BUFF_STR);
             }
         }
         return "Our Goblins are motivated to fight";

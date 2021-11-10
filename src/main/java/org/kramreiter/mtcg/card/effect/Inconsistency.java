@@ -12,9 +12,13 @@ public class Inconsistency implements UniqueEffect {
 
     @Override
     public String executeEffect(Card self, Card opponent, Deck selfDeck, Deck opponentDeck, CombatOutcome prevOutcome) {
-        self.setStrength((int) (Math.random() * MAX_STRENGTH + 1));
+        self.setPower((int) (Math.random() * MAX_STRENGTH + 1));
         self.setCardType(CardType.typeFromNumber((int) (Math.random() * 5)));
-        return "2362#+-.,-.3567*'=))&%9?";
+        StringBuilder glitch = new StringBuilder();
+        for (int i = 0; i < 16; i++) {
+            glitch.append((char) (33 + (int) (Math.random() * 93)));
+        }
+        return glitch.toString();
     }
 
     @Override

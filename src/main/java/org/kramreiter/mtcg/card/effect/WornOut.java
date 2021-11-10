@@ -12,7 +12,7 @@ public class WornOut implements UniqueEffect {
 
     @Override
     public String executeEffect(Card self, Card opponent, Deck selfDeck, Deck opponentDeck, CombatOutcome prevOutcome) {
-        self.setStrength(self.getStrength() - WORNNERF);
+        self.setPower(self.getPower() - WORNNERF);
         return "The Champion lost some strength";
     }
 

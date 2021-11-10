@@ -13,7 +13,7 @@ public class Incinerate implements UniqueEffect {
     @Override
     public String executeEffect(Card self, Card opponent, Deck selfDeck, Deck opponentDeck, CombatOutcome prevOutcome) {
         int index = (int) (opponentDeck.getCards().length * Math.random());
-        opponentDeck.getCards()[index].setStrength(opponentDeck.getCards()[index].getStrength() - INCINERATENERF);
+        opponentDeck.getCards()[index].setPower(opponentDeck.getCards()[index].getPower() - INCINERATENERF);
         return "A random card has been burned, reducing its strength";
     }
 

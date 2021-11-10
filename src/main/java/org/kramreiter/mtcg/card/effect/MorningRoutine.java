@@ -14,7 +14,7 @@ public class MorningRoutine implements UniqueEffect {
     public String executeEffect(Card self, Card opponent, Deck selfDeck, Deck opponentDeck, CombatOutcome prevOutcome) {
         for (Card c : selfDeck.getCards()) {
             if (c.getTag() == MonsterTag.Knight) {
-                c.setStrength(c.getStrength() + ROUTINE_BUFF);
+                c.setPower(c.getPower() + ROUTINE_BUFF);
             }
         }
         return "The knights are armed and ready!";

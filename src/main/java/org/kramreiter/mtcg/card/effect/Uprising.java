@@ -23,7 +23,7 @@ public class Uprising implements UniqueEffect {
     private void strengthenDeck(Deck deck) {
         for (Card c : deck.getCards()) {
             if (c.getTag() == MonsterTag.Goblin) {
-                c.setStrength(c.getStrength() + UPRISESTR);
+                c.setPower(c.getPower() + UPRISESTR);
             }
         }
     }

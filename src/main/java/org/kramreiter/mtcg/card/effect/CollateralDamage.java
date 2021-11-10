@@ -13,7 +13,7 @@ public class CollateralDamage implements UniqueEffect {
     @Override
     public String executeEffect(Card self, Card opponent, Deck selfDeck, Deck opponentDeck, CombatOutcome prevOutcome) {
         Card c = selfDeck.getCards()[(int) (Math.random() * (selfDeck.getCards().length - 1))];
-        c.setStrength(c.getStrength() - DAMAGE);
+        c.setPower(c.getPower() - DAMAGE);
         return c.getName() + " has been severely weakened";
     }
 

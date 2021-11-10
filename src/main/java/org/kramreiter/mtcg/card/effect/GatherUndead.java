@@ -13,7 +13,7 @@ public class GatherUndead implements UniqueEffect {
     @Override
     public String executeEffect(Card self, Card opponent, Deck selfDeck, Deck opponentDeck, CombatOutcome prevOutcome) {
         int undeadCount = countUndead(selfDeck) + countUndead(opponentDeck);
-        self.setStrength(self.getBaseStrength() + undeadCount * UNDEAD_BUFF);
+        self.setPower(self.getBasePower() + undeadCount * UNDEAD_BUFF);
         if (undeadCount > 0) {
             return "Nearby Undead strengthened Shifting Grounds";
         }

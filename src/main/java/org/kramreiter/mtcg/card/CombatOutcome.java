@@ -39,15 +39,16 @@ public class CombatOutcome {
 
     private void parseMessage(Card winner, Card loser) {
         if (winner == null || loser == null) return;
-        if (this.message.contains("/w")) {
-            int winnerStr = winner.computeStrengthAgainst(loser);
-            String winnerString = winner.getName() + " {owner: " + winner.getOwnerName() + "; strength: " + winnerStr + "; type: " + winner.getCardType().toString() + "}";
-            this.message = this.message.replaceAll("/w", winnerString);
-        }
-        if (this.message.contains("/l")) {
-            int loserStr = loser.computeStrengthAgainst(winner);
-            String loserString = loser.getName() + " {owner: " + loser.getOwnerName() + "; strength: " + loserStr + "; type: " + loser.getCardType().toString() + "}";
-            this.message = this.message.replaceAll("/l", loserString);
-        }
+        this.message = this.message.replaceAll("/w", getMessageStringForCard(winner, loser));
+        this.message = this.message.replaceAll("/l", getMessageStringForCard(loser, winner));
+    }
+
+    private String getMessageStringForCard(Card self, Card opponent) {
+        int selfStr = self.computeStrengthAgainst(opponent);
+        int cachedStr = self.getPower();
+        self.setPower(selfStr);
+        String output = self.toString();
+        self.setPower(cachedStr);
+        return output;
     }
 }

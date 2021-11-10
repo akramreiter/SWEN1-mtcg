@@ -30,7 +30,7 @@ public class CardTests {
 
     @Test
     void cardTestEffectivity() {
-        assert testSpell.getStrength() < testMonster.getStrength();
+        assert testSpell.getPower() < testMonster.getPower();
         System.out.println(testMonster.computeStrengthAgainst(testSpell) + " < " + testSpell.computeStrengthAgainst(testMonster));
         assert testMonster.computeStrengthAgainst(testSpell) < testSpell.computeStrengthAgainst(testMonster);
     }

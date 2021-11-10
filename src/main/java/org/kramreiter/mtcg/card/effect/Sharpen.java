@@ -12,7 +12,7 @@ public class Sharpen implements UniqueEffect {
 
     @Override
     public String executeEffect(Card self, Card opponent, Deck selfDeck, Deck opponentDeck, CombatOutcome prevOutcome) {
-        self.setStrength(self.getStrength() + SHARPENSTR);
+        self.setPower(self.getPower() + SHARPENSTR);
         return "Ow the edge";
     }
 

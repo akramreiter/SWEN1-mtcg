@@ -88,7 +88,7 @@ public class User {
         if (getElo() > opponent.getElo()) {
             multiplier = 1 / multiplier;
         }
-        return (int) (multiplier * BASE_ELO_GAIN);
+        return (int) Math.round(multiplier * BASE_ELO_GAIN);
     }
 
     public int adjustElo(int change) {

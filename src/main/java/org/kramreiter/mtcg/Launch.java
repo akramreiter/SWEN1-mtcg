@@ -4,7 +4,7 @@ import org.kramreiter.mtcg.card.*;
 import org.kramreiter.mtcg.user.User;
 
 public class Launch {
-    private static final int textDelay = 10;
+    private static final int textDelay = 1;
 
     public static void main(String[] args) {
         User player1 = new User("player one");

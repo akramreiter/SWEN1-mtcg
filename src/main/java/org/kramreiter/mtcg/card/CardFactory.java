@@ -107,9 +107,9 @@ public class CardFactory {
             case "3009" -> "/w used their staff to beat up /l";
             case "3010" -> "/w sneaked up on and defeated /l with a single cut";
             case "3011" -> "/w was unimpressed by /l's pathetic attempts to take them down";
-            case "3012" -> "/w may not be at the height of their strength, but even so, /l stood no chance against them";
+            case "3012" -> "Even past their prime /w could easily defeat /l";
             case "3013" -> "/w's fiery breath roasted /l";
-            case "3014" -> "/w took a stand against Goblin oppression and survived the encounter against /l";
+            case "3014" -> "/w took a stand against Goblin oppression and survived against /l";
             default -> null;
         };
     }

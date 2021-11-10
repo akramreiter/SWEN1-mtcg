@@ -10,8 +10,8 @@ public class SelfSeal implements UniqueEffect {
 
     @Override
     public String executeEffect(Card self, Card opponent, Deck selfDeck, Deck opponentDeck, CombatOutcome prevOutcome) {
-        if (self.getStrength() > 0) {
-            self.setStrength(0);
+        if (self.getPower() > 0) {
+            self.setPower(0);
             return self.getName() + "'s powers have been sealed";
         }
         return null;

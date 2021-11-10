@@ -14,7 +14,7 @@ public class Blessing implements UniqueEffect {
     public String executeEffect(Card self, Card opponent, Deck selfDeck, Deck opponentDeck, CombatOutcome prevOutcome) {
         for (Card c : selfDeck.getCards()) {
             if (!c.isSpell()) {
-                c.setStrength(c.getStrength() + BLESSSTR);
+                c.setPower(c.getPower() + BLESSSTR);
             }
         }
         return "The blessing granted monsters additional strength";

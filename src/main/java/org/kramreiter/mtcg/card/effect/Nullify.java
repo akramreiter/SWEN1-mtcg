@@ -11,7 +11,7 @@ public class Nullify implements UniqueEffect {
     @Override
     public String executeEffect(Card self, Card opponent, Deck selfDeck, Deck opponentDeck, CombatOutcome prevOutcome) {
         for (Card c : selfDeck.getCards()) {
-            c.setStrength(c.getBaseStrength());
+            c.setPower(c.getBasePower());
         }
         return "Cards returned to their state before the game";
     }

@@ -13,7 +13,7 @@ public class Scorch implements UniqueEffect {
     @Override
     public String executeEffect(Card self, Card opponent, Deck selfDeck, Deck opponentDeck, CombatOutcome prevOutcome) {
         for (Card c : opponentDeck.getCards()) {
-            c.setStrength(c.getStrength() - SCORCHNERF);
+            c.setPower(c.getPower() - SCORCHNERF);
         }
         return "The flames of hell scorched the world";
     }

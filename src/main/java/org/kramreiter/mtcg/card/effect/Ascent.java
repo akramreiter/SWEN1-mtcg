@@ -14,7 +14,7 @@ public class Ascent implements UniqueEffect {
     public String executeEffect(Card self, Card opponent, Deck selfDeck, Deck opponentDeck, CombatOutcome prevOutcome) {
         for (Card c : selfDeck.getCards()) {
             if (c.isSpell() && c.getCardType() == CardType.Air) {
-                c.setStrength(c.getStrength() + ASCENTSTR);
+                c.setPower(c.getPower() + ASCENTSTR);
             }
         }
         return "The Archmage of Winds empowered air spells";

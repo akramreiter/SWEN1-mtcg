@@ -20,7 +20,7 @@ public class BlazingAura implements UniqueEffect {
     public void buffDeck(Deck deck) {
         for (Card c : deck.getCards()) {
             if (c.isSpell() && c.getCardType() == CardType.Fire) {
-                c.setStrength(c.getStrength() + BUFF_STR);
+                c.setPower(c.getPower() + BUFF_STR);
             }
         }
     }

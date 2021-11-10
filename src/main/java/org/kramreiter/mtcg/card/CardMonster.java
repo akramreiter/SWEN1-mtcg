@@ -4,8 +4,8 @@ public class CardMonster extends Card {
 
     public CardMonster(String name, int baseStrength, int cardType, int rarity, String effect, int tag) {
         this.name = name;
-        this.baseStrength = baseStrength;
-        this.strength = baseStrength;
+        this.basePower = baseStrength;
+        this.power = baseStrength;
         this.spell = false;
         this.cardType = CardType.typeFromNumber(cardType);
         this.rarity = Rarity.rarityFromNumber(rarity);
@@ -14,8 +14,8 @@ public class CardMonster extends Card {
     }
     public CardMonster(String name, int baseStrength, CardType cardType, Rarity rarity, UniqueEffect effect, MonsterTag tag) {
         this.name = name;
-        this.baseStrength = baseStrength;
-        this.strength = baseStrength;
+        this.basePower = baseStrength;
+        this.power = baseStrength;
         this.spell = false;
         this.cardType = cardType;
         this.rarity = rarity;

@@ -11,10 +11,10 @@ public class Gamble implements UniqueEffect {
     @Override
     public String executeEffect(Card self, Card opponent, Deck selfDeck, Deck opponentDeck, CombatOutcome prevOutcome) {
         if ((int) (Math.random() * 2) > 1) {
-            self.setStrength(self.getStrength() - 10);
+            self.setPower(self.getPower() - 10);
             return "You lose some...";
         } else {
-            self.setStrength(self.getStrength() + 10);
+            self.setPower(self.getPower() + 10);
             return "You win some...";
         }
     }

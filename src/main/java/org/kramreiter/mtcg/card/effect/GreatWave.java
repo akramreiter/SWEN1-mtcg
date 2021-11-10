@@ -14,7 +14,7 @@ public class GreatWave implements UniqueEffect {
     public String executeEffect(Card self, Card opponent, Deck selfDeck, Deck opponentDeck, CombatOutcome prevOutcome) {
         for (Card c : selfDeck.getCards()) {
             if (!c.isSpell() && c.getCardType() == CardType.Water) {
-                c.setStrength(c.getStrength() + WAVESTR);
+                c.setPower(c.getPower() + WAVESTR);
             }
         }
         return "The Grand Flood strengthened water monsters";

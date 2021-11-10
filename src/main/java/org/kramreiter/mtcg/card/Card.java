@@ -5,8 +5,8 @@ import lombok.Setter;
 
 @Getter
 public abstract class Card implements Cloneable {
-    protected int baseStrength;
-    protected int strength;
+    protected int basePower;
+    protected int power;
     @Setter
     protected CardType cardType;
     protected boolean spell;
@@ -29,13 +29,13 @@ public abstract class Card implements Cloneable {
         return null;
     }
 
-    public void setStrength(int str) {
-        this.strength = str;
-        if (this.strength < 0) this.strength = 0;
+    public void setPower(int str) {
+        this.power = str;
+        if (this.power < 0) this.power = 0;
     }
 
     public int computeStrengthAgainst(Card opponent) {
-        int res = getStrength();
+        int res = this.getPower();
         if (isSpell()) {
             res = (int) (res * RuleManager.computeWeaknessMultiplier(getCardType(), opponent.getCardType()));
         }
@@ -53,9 +53,12 @@ public abstract class Card implements Cloneable {
                 out.append(" - ").append(getTag());
             }
         }
-        out.append(") [strength: ").
-                append(getBaseStrength()).
-                append("] {Rarity: ").
+        out.append(")[base power: ").
+                append(this.getBasePower());
+        if (this.getBasePower() != this.getPower()) {
+            out.append("; current power: ").append(this.getPower());
+        }
+        out.append("]{Rarity: ").
                 append(getRarity()).
                 append("; Type: ").
                 append(getCardType());

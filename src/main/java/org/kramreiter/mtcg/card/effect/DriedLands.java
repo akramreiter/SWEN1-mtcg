@@ -24,7 +24,7 @@ public class DriedLands implements UniqueEffect {
         boolean weakened = false;
         for (Card c : deck.getCards()) {
             if (!c.isSpell() && c.getCardType() == CardType.Water) {
-                c.setStrength(c.getStrength() - 5);
+                c.setPower(c.getPower() - 5);
             }
         }
         return weakened;
