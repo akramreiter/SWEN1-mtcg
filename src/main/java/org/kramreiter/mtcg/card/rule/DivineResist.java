@@ -20,6 +20,11 @@ public class DivineResist implements SpecialRule {
     }
 
     @Override
+    public CardType[] getAffectedSpellTypes() {
+        return new CardType[0];
+    }
+
+    @Override
     public String getEffectDescription() {
         return "Divine monsters are immune to spells that would be very effective against them";
     }

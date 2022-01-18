@@ -68,4 +68,16 @@ public abstract class Card implements Cloneable {
         out.append("}");
         return out.toString();
     }
+
+    public String cardInfo() {
+        String output = "" + toString();
+        if (getEffect() != null) {
+            output += "\n" + getEffect().getDescription();
+        }
+        String rules = RuleManager.getRelevantRules(this);
+        if (rules != null) {
+            output += "\nRules:\n" + rules;
+        }
+        return output;
+    }
 }

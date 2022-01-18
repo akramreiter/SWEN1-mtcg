@@ -1,9 +1,6 @@
 package org.kramreiter.mtcg.card.rule;
 
-import org.kramreiter.mtcg.card.Card;
-import org.kramreiter.mtcg.card.CombatOutcome;
-import org.kramreiter.mtcg.card.MonsterTag;
-import org.kramreiter.mtcg.card.SpecialRule;
+import org.kramreiter.mtcg.card.*;
 
 public class GoblinFear implements SpecialRule {
     @Override
@@ -19,6 +16,11 @@ public class GoblinFear implements SpecialRule {
         return new MonsterTag[] {
                 MonsterTag.Dragon, MonsterTag.Goblin
         };
+    }
+
+    @Override
+    public CardType[] getAffectedSpellTypes() {
+        return new CardType[0];
     }
 
     @Override

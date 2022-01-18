@@ -1,14 +1,24 @@
 package org.kramreiter.mtcg.cliclient;
 
-public class CommThread implements Runnable {
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
 
+public class CommThread implements Runnable {
+    Socket socket;
+    BufferedReader sock_in;
+    public CommThread(Socket sock) {
+        socket = sock;
+        try {
+            sock_in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+            sock_in = null;
+        }
+    }
     @Override
     public void run() {
-        System.out.println("HI FROM A DIFFERENT THREAD");
-        long j = 0;
-        for (long i = 0; i < Long.MAX_VALUE; i++) {
-            j++;
-        }
-        System.out.println("Successfully counted a lot of numbers: " + j);
+
     }
 }

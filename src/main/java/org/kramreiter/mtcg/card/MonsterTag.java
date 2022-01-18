@@ -19,16 +19,4 @@ public enum MonsterTag {
             default -> null;
         };
     }
-
-    public static String getRuleEffects(MonsterTag tag) {
-        if (tag == null) return "Card has no tag, no special rules apply";
-        StringBuilder out = new StringBuilder();
-        for (SpecialRule rule : RuleManager.getRuleset()) {
-            if (Arrays.asList(rule.getAffectedTags()).contains(tag)) {
-                if (out.length() < 1) out.append("\n");
-                out.append(rule.getEffectDescription());
-            }
-        }
-        return out.toString();
-    }
 }

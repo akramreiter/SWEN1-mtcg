@@ -19,6 +19,11 @@ public class WizardControl implements SpecialRule {
     }
 
     @Override
+    public CardType[] getAffectedSpellTypes() {
+        return new CardType[0];
+    }
+
+    @Override
     public String getEffectDescription() {
         return "Wizards can control Orks, allowing them those fights instantly";
     }

@@ -19,6 +19,13 @@ public class KnightDrown implements SpecialRule {
     }
 
     @Override
+    public CardType[] getAffectedSpellTypes() {
+        return new CardType[] {
+                CardType.Water
+        };
+    }
+
+    @Override
     public String getEffectDescription() {
         return "Knights drown when hit by Water Spells";
     }

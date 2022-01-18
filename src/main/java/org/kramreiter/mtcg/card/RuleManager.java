@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import org.kramreiter.mtcg.card.rule.*;
 
+import java.util.Arrays;
+
 public class RuleManager {
     @Getter()
     private static SpecialRule[] ruleset = initiateRuleset();
@@ -38,5 +40,28 @@ public class RuleManager {
         } else {
             return 1.0;
         }
+    }
+
+    public static String getRelevantRules(Card card) {
+        StringBuilder out = new StringBuilder();
+        if (card.isSpell()) {
+            CardType type = card.getCardType();
+            for (SpecialRule rule : RuleManager.getRuleset()) {
+                if (Arrays.asList(rule.getAffectedSpellTypes()).contains(type)) {
+                    if (out.length() > 0) out.append("\n");
+                    out.append(rule.getEffectDescription());
+                }
+            }
+        } else {
+            MonsterTag tag = card.getTag();
+            if (tag == null) return null;
+            for (SpecialRule rule : RuleManager.getRuleset()) {
+                if (Arrays.asList(rule.getAffectedTags()).contains(tag)) {
+                    if (out.length() > 0) out.append("\n");
+                    out.append(rule.getEffectDescription());
+                }
+            }
+        }
+        return out.toString();
     }
 }

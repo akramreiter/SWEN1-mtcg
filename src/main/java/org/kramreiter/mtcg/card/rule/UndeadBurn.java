@@ -19,6 +19,13 @@ public class UndeadBurn implements SpecialRule {
     }
 
     @Override
+    public CardType[] getAffectedSpellTypes() {
+        return new CardType[] {
+                CardType.Fire
+        };
+    }
+
+    @Override
     public String getEffectDescription() {
         return "Undead get burned instantly when exposed to Fire spells";
     }

@@ -1,0 +1,15 @@
+package org.kramreiter.mtcg.comm;
+
+public enum ServerOperation {
+    SETDECKCLASSIC,
+    SETDECKSTRUCTURED,
+    TOGGLEQUEUECLASSIC,
+    TOGGLEQUEUESTRUCTURED,
+    PLAYCLASSIC,
+    PLAYSTRUCTURED,
+    OPENPACK,
+    OFFERTRADE,
+    SEARCHTRADE,
+    REGISTER,
+    LOGIN
+}

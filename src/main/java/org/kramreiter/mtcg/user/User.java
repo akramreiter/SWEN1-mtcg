@@ -1,31 +1,55 @@
 package org.kramreiter.mtcg.user;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.*;
+
+import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.NaturalId;
 import org.kramreiter.mtcg.card.CardFactory;
 import org.kramreiter.mtcg.card.Rarity;
 
 @Getter
 @Setter
+@Entity
+@Table(name = "users")
 public class User {
     private static int BASE_ELO_GAIN = 20;
-
+    @NaturalId
     protected String username;
-    protected String[] deckCards;
+    protected int hashedPassword;
+    protected String accessToken;
+    protected String deckCards;
     @Setter(AccessLevel.PROTECTED)
-    protected String[] ownedCards;
+    protected String ownedCards;
     protected int elo;
     protected int payToWinCoins = 20;
     protected int freeRolls;
     protected boolean legendRoll;
 
+    protected boolean queueClassic;
+    protected boolean queueStructured;
+
     @Getter(AccessLevel.PROTECTED)
     @Setter(AccessLevel.NONE)
-    private CardFactory cardFactory = CardFactory.getInstance();
+    private static CardFactory cardFactory = CardFactory.getInstance();
+    @Getter(AccessLevel.NONE)
+    private Long id;
 
-    public User(String username) {
+    public User(String username, String password) {
         this.username = username;
+        setHashedPassword(password.hashCode());
+        this.elo = 1000;
+        this.legendRoll = true;
+    }
+
+    protected User() {
         this.elo = 1000;
         this.legendRoll = true;
     }
@@ -94,5 +118,34 @@ public class User {
     public int adjustElo(int change) {
         elo += change;
         return elo;
+    }
+
+    @Id
+    @GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment", strategy = "increment")
+    public Long getId() {
+        return id;
+    }
+
+    @Transient
+    public void setDeckCardlist(CardList list) {
+        ObjectWriter writer = new ObjectMapper().writer();
+        try {
+            this.deckCards = writer.writeValueAsString(list);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            this.deckCards = null;
+        }
+    }
+
+    @Transient
+    public CardList getDeckCardlist() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.readValue(this.deckCards, CardList.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return new CardList();
     }
 }

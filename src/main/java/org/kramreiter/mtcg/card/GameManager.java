@@ -14,8 +14,8 @@ public class GameManager {
      * @return
      */
     public static String[] runGame(User player1, User player2, GameMode mode) {
-        Deck player1Deck = new Deck(player1.getDeckCards(), player1.getUsername());
-        Deck player2Deck = new Deck(player2.getDeckCards(), player2.getUsername());
+        Deck player1Deck = new Deck(player1.getDeckCardlist().toArray(), player1.getUsername());
+        Deck player2Deck = new Deck(player2.getDeckCardlist().toArray(), player2.getUsername());
         ArrayList<String> outcomes = new ArrayList<>();
         outcomes.add("Ranked game between " + player1.getUsername() + " and " + player2.getUsername());
         outcomes.add("Playing in " + mode + " mode");

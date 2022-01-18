@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.kramreiter.mtcg.card.CardFactory;
 import org.kramreiter.mtcg.card.Deck;
+import org.kramreiter.mtcg.user.CardList;
 import org.kramreiter.mtcg.user.User;
 import org.mockito.Mockito;
 
@@ -13,17 +14,18 @@ public class UserTests {
 
     @BeforeEach
     public void setupUser() {
-        testUser = new User("Pro Gamer");
-        String[] cards = new String[] {
+        testUser = new User("Pro Gamer", "asdfghjk");
+        CardList list = new CardList();
+        list.addCards(new String[] {
                 "0001",
                 "0002",
                 "0003",
                 "0004"
-        };
-        testUser.setDeckCards(cards);
+        });
+        testUser.setDeckCardlist(list);
         testUser.setElo(1500);
-        testUser2 = new User("New Gamer");
-        testUser2.setDeckCards(cards);
+        testUser2 = new User("New Gamer", "asdfghjk");
+        testUser2.setDeckCardlist(list);
     }
 
     @Test
