@@ -10,11 +10,10 @@ import java.io.Serializable;
 @Setter
 public class Response implements Serializable {
     private int status;
-    private String message;
-    private String contentType;
+    private String message = "";
+    private String contentType = "";
     private int contentLength;
-    @Setter(AccessLevel.NONE)
-    private String content;
+    private String content = "";
 
     public Response() {}
 
@@ -32,12 +31,5 @@ public class Response implements Serializable {
                 "Content-Length: " + this.contentLength + "\r\n" +
                 "\r\n" +
                 this.content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-        if (content != null) {
-            this.contentLength = content.length();
-        }
     }
 }

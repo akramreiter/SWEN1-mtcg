@@ -14,7 +14,7 @@ public class Request implements Serializable {
     private String params = "";
     private String contentType;
     private Integer contentLength;
-    private String body;
+    private String body = "";
 
     public String get() {
         String out = method.name() + " " + pathname;

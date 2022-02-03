@@ -9,14 +9,12 @@ public class RequestBuilder {
     static final String CONTENT_LENGTH = "Content-Length: ";
 
     public static Request buildRequest(BufferedReader in) throws IOException {
-        System.out.println("3");
         String line = in.readLine();
-        System.out.println("4");
         Request request = new Request();
 
         if (line != null) {
             String[] splitFirstLine = line.split(" ");
-            Boolean hasParams = splitFirstLine[1].indexOf("?") != -1;
+            Boolean hasParams = splitFirstLine[1].contains("?");
 
 
             request.setMethod(getMethod(splitFirstLine));

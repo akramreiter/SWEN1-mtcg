@@ -7,7 +7,7 @@ public class ResponseBuilder {
     static final String CONTENT_TYPE = "Content-Type: ";
     static final String CONTENT_LENGTH = "Content-Length: ";
 
-    public static Response buildRequest(BufferedReader in) throws IOException {
+    public static Response buildResponse(BufferedReader in) throws IOException {
         String line = in.readLine();
         Response response = new Response();
 

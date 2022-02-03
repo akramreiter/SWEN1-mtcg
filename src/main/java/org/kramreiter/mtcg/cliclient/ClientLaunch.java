@@ -38,12 +38,20 @@ public class ClientLaunch {
         comm.start();
 
         boolean login_status = false;
-        String input = null;
+        String input;
         while (true) {
             Request req = new Request();
             if (!login_status) {
-                System.out.println("Enter \"r\" to register or leave empty to login");
+                System.out.println("Enter \"r\" to register or leave empty to login\r\nEnter \"exit\" to quit");
                 input = s.nextLine().trim();
+                if (input.startsWith("exit")) {
+                    try {
+                        sock.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    System.exit(0);
+                }
                 boolean isRegister = input.startsWith("r");
                 input = "";
                 while (input.length() < 1) {
@@ -74,7 +82,7 @@ public class ClientLaunch {
                 }
                 System.out.println("2");
                 req.setContentLength(req.getBody().length());
-                sock_out.printf(req.get() + System.lineSeparator());
+                sock_out.printf(req.get());
             } else {
                 System.out.println("Enter your operation (\"help\" for full list)");
                 input = s.nextLine();

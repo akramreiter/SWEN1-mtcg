@@ -12,7 +12,7 @@ public class MTCGApp implements ServerApp {
         ObjectMapper mapper = new ObjectMapper();
         ResponseContent output = new ResponseContent();
         try {
-            ArrayList<Method> allowedMethods = new ArrayList<Method>();
+            ArrayList<Method> allowedMethods = new ArrayList<>();
             allowedMethods.add(Method.POST);
             allowedMethods.add(Method.PUT);
             if (!allowedMethods.contains(request.getMethod())) {
@@ -22,35 +22,16 @@ public class MTCGApp implements ServerApp {
             }
             RequestContent content = mapper.readValue(request.getBody(), RequestContent.class);
             switch (request.getPathname()) {
-                case "login":
-                    output.setResponse(login(content));
-                    break;
-                case "register":
-                    output.setResponse(register(content));
-                    break;
-                case "setdeck":
-                    output.setResponse(setDeck(content));
-                    break;
-                case "queueup":
-                    output.setResponse(queueUp(content));
-                    break;
-                case "openpack":
-                    output.setResponse(openPack(content));
-                    break;
-                case "searchtrade":
-                    output.setResponse(searchTrade(content));
-                    break;
-                case "offertrade":
-                    output.setResponse(offerTrade(content));
-                    break;
-                case "accepttrade":
-                    output.setResponse(acceptTrade(content));
-                    break;
-                case "getcollection":
-                    output.setResponse(getCollection(content));
-                    break;
-                default:
-                    output.setResponse(new String[] {"[ERR] unknown command"});
+                case "login" -> output.setResponse(login(content));
+                case "register" -> output.setResponse(register(content));
+                case "setdeck" -> output.setResponse(setDeck(content));
+                case "queueup" -> output.setResponse(queueUp(content));
+                case "openpack" -> output.setResponse(openPack(content));
+                case "searchtrade" -> output.setResponse(searchTrade(content));
+                case "offertrade" -> output.setResponse(offerTrade(content));
+                case "accepttrade" -> output.setResponse(acceptTrade(content));
+                case "getcollection" -> output.setResponse(getCollection(content));
+                default -> output.setResponse(new String[]{"[ERR] unknown command"});
             }
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -62,7 +43,7 @@ public class MTCGApp implements ServerApp {
                 e.printStackTrace();
             }
         }
-        return new Response(HttpStatus.INTERNAL_SERVER_ERROR, ContentType.JSON, "");
+        return new Response(HttpStatus.INTERNAL_SERVER_ERROR, ContentType.JSON, "[]");
     }
 
     public String[] login(RequestContent request) {
@@ -70,7 +51,7 @@ public class MTCGApp implements ServerApp {
     }
 
     public String[] register(RequestContent request) {
-        return new String[0];
+        return new String[] {"register"};
     }
 
     public String[] setDeck(RequestContent request) {
