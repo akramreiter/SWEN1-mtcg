@@ -38,5 +38,5 @@ Disclaimer: TotallyRealGamesCompanyExploitativeGames doesn't exist and this soft
 
 ## Notes
 
-database setup: `docker run --name swe1db -e POSTGRES_USER=mtcg -e POSTGRES_PASSWORD=mtcg -p 5432:5432 postgres` 
-connect: psql -p 5432 -h localhost -U swe1user
+- database setup: `docker run --name swe1db -e POSTGRES_USER=mtcg -e POSTGRES_PASSWORD=mtcg -p 5432:5432 postgres`  
+- connect: `psql -p 5432 -h localhost -U swe1user`
