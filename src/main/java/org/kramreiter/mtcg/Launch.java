@@ -57,8 +57,8 @@ public class Launch {
                 "2003"
         });
 
-        player1.setDeckCardlist(p1deck);
-        player2.setDeckCardlist(p2deck);
+        player1.setDeckCardlistStructured(p1deck);
+        player2.setDeckCardlistStructured(p2deck);
 
         /*player1.setPayToWinCoins(100);
         while (player1.getPayToWinCoins() > 4) {

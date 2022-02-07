@@ -1,11 +1,8 @@
 package org.kramreiter.mtcg.user;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
-import org.kramreiter.mtcg.card.Card;
 import org.kramreiter.mtcg.card.CardFactory;
 
 import java.util.ArrayList;
@@ -15,8 +12,8 @@ import java.util.Map;
 @Getter
 @Setter
 public class CardList {
-    @JsonAlias("cards")
-    Map<String,Integer> cardIds = new HashMap<>();
+    @JsonAlias("card")
+    private Map<String,Integer> cardIds = new HashMap<>();
 
     public boolean addCard(String cardId) {
         if (CardFactory.getInstance().getCard(cardId) != null) {
@@ -42,7 +39,7 @@ public class CardList {
                 allSuccessful = false;
             }
         }
-        return false;
+        return allSuccessful;
     }
     public boolean removeCard(String cardId) {
         if (CardFactory.getInstance().getCard(cardId) != null) {
@@ -66,5 +63,17 @@ public class CardList {
             }
         }
         return output.toArray(new String[0]);
+    }
+
+    public Map<String, Integer> get() {
+        return cardIds;
+    }
+
+    public int size() {
+        int size = 0;
+        for (String s : cardIds.keySet()) {
+            size += cardIds.get(s);
+        }
+        return size;
     }
 }

@@ -22,10 +22,10 @@ public class UserTests {
                 "0003",
                 "0004"
         });
-        testUser.setDeckCardlist(list);
+        testUser.setDeckCardlistClassic(list);
         testUser.setElo(1500);
         testUser2 = new User("New Gamer", "asdfghjk");
-        testUser2.setDeckCardlist(list);
+        testUser2.setDeckCardlistClassic(list);
     }
 
     @Test

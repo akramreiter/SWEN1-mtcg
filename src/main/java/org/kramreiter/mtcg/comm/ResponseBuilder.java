@@ -8,30 +8,35 @@ public class ResponseBuilder {
     static final String CONTENT_LENGTH = "Content-Length: ";
 
     public static Response buildResponse(BufferedReader in) throws IOException {
-        String line = in.readLine();
+        String line = null;
         Response response = new Response();
-
-        if (line != null) {
-            String[] splitFirstLine = line.split(" ");
-            response.setStatus(getStatus(splitFirstLine));
-            response.setMessage(getMessage(splitFirstLine));
-
-            while (!line.isEmpty()) {
-                line = in.readLine();
-                if (line.startsWith(CONTENT_LENGTH)) {
-                    response.setContentLength(getContentLength(line));
-                }
-                if (line.startsWith(CONTENT_TYPE)) {
-                    response.setContentType(getContentType(line));
-                }
+        while (line == null) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+            line = in.readLine();
+        }
+        String[] splitFirstLine = line.split(" ");
+        response.setStatus(getStatus(splitFirstLine));
+        response.setMessage(getMessage(splitFirstLine));
 
-            int asciiChar;
-            for (int i = 0; i < response.getContentLength(); i++) {
-                asciiChar = in.read();
-                String body = response.getContent();
-                response.setContent(body + ((char) asciiChar));
+        while (!line.isEmpty()) {
+            line = in.readLine();
+            if (line.startsWith(CONTENT_LENGTH)) {
+                response.setContentLength(getContentLength(line));
             }
+            if (line.startsWith(CONTENT_TYPE)) {
+                response.setContentType(getContentType(line));
+            }
+        }
+
+        int asciiChar;
+        for (int i = 0; i < response.getContentLength(); i++) {
+            asciiChar = in.read();
+            String body = response.getContent();
+            response.setContent(body + ((char) asciiChar));
         }
         return response;
     }

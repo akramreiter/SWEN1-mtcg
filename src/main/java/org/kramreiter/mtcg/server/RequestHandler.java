@@ -20,6 +20,9 @@ public class RequestHandler implements Runnable {
         this.in = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
         this.output = new PrintWriter(this.clientSocket.getOutputStream(), true);
         this.app = app;
+        if (this.app instanceof MTCGApp) {
+            ((MTCGApp) this.app).setWriter(this.output);
+        }
     }
 
     @Override

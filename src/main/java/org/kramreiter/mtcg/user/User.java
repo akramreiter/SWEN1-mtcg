@@ -9,7 +9,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NaturalId;
 import org.kramreiter.mtcg.card.CardFactory;
@@ -21,16 +20,18 @@ import org.kramreiter.mtcg.card.Rarity;
 @Table(name = "users")
 public class User {
     private static int BASE_ELO_GAIN = 20;
+    private static int CLASSIC_DECK_SIZE = 4;
+    private static int STRUCTURED_DECK_SIZE = 12;
     @NaturalId
     protected String username;
     protected int hashedPassword;
     protected String accessToken;
-    protected String deckCards;
+    protected String deckCardsClassic;
+    protected String deckCardsStructured;
     @Setter(AccessLevel.PROTECTED)
     protected String ownedCards;
     protected int elo;
     protected int payToWinCoins = 20;
-    protected int freeRolls;
     protected boolean legendRoll;
 
     protected boolean queueClassic;
@@ -47,6 +48,14 @@ public class User {
         setHashedPassword(password.hashCode());
         this.elo = 1000;
         this.legendRoll = true;
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            ownedCards = mapper.writeValueAsString(new CardList());
+            deckCardsClassic = mapper.writeValueAsString(new CardList());
+            deckCardsStructured = mapper.writeValueAsString(new CardList());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 
     protected User() {
@@ -55,6 +64,7 @@ public class User {
     }
 
     public String[] openPack() {
+        String[] pack = new String[0];
         if (payToWinCoins > 4) {
             payToWinCoins -= 5;
             double random = Math.random();
@@ -62,7 +72,7 @@ public class User {
                 if (legendRoll) {
                     legendRoll = false;
                 }
-                return new String[] {
+                pack = new String[] {
                         getCardFactory().getRandomCardIdForRarity(Rarity.Legendary),
                         getCardFactory().getRandomCardIdForRarity(Rarity.Epic),
                         getCardFactory().getRandomCardIdForRarity(Rarity.Rare),
@@ -70,7 +80,7 @@ public class User {
                         getCardFactory().getRandomCardIdForRarity(Rarity.Common)
                 };
             } else if (random > 0.75) {
-                return new String[] {
+                pack = new String[] {
                         getCardFactory().getRandomCardIdForRarity(Rarity.Epic),
                         getCardFactory().getRandomCardIdForRarity(Rarity.Rare),
                         getCardFactory().getRandomCardIdForRarity(Rarity.Common),
@@ -78,7 +88,7 @@ public class User {
                         getCardFactory().getRandomCardIdForRarity(Rarity.Common)
                 };
             } else {
-                return new String[] {
+                pack = new String[] {
                         getCardFactory().getRandomCardIdForRarity(Rarity.Rare),
                         getCardFactory().getRandomCardIdForRarity(Rarity.Common),
                         getCardFactory().getRandomCardIdForRarity(Rarity.Common),
@@ -86,8 +96,23 @@ public class User {
                         getCardFactory().getRandomCardIdForRarity(Rarity.Common)
                 };
             }
+            ObjectMapper mapper = new ObjectMapper();
+            CardList cl;
+            try {
+                cl = mapper.readValue(ownedCards, CardList.class);
+            } catch (Exception e) {
+                cl = new CardList();
+            }
+            for (String card : pack) {
+                cl.addCard(card);
+            }
+            try {
+                ownedCards = mapper.writer().writeValueAsString(cl);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
         }
-        return new String[0];
+        return pack;
     }
 
     /**
@@ -128,24 +153,87 @@ public class User {
     }
 
     @Transient
-    public void setDeckCardlist(CardList list) {
+    public boolean setDeckCardlistClassic(CardList list) {
         ObjectWriter writer = new ObjectMapper().writer();
+        int cards = 0;
+        for (String s : list.get().keySet()) {
+            if (list.get().get(s) > 1) return false;
+            cards++;
+        }
+        if (cards > CLASSIC_DECK_SIZE) return false;
         try {
-            this.deckCards = writer.writeValueAsString(list);
+            this.deckCardsClassic = writer.writeValueAsString(list);
+            return true;
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            this.deckCards = null;
         }
+        return false;
     }
 
     @Transient
-    public CardList getDeckCardlist() {
+    public CardList getDeckCardlistClassic() {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            return mapper.readValue(this.deckCards, CardList.class);
-        } catch (JsonProcessingException e) {
+            return mapper.readValue(this.deckCardsClassic, CardList.class);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return new CardList();
+    }
+    @Transient
+    public boolean setDeckCardlistStructured(CardList list) {
+        ObjectWriter writer = new ObjectMapper().writer();
+        int cards = 0;
+        for (String s : list.get().keySet()) {
+            if (list.get().get(s) > 1) return false;
+            cards++;
+        }
+        if (cards > STRUCTURED_DECK_SIZE) return false;
+        try {
+            this.deckCardsStructured = writer.writeValueAsString(list);
+            return true;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            this.deckCardsStructured = null;
+        }
+        return false;
+    }
+
+    @Transient
+    public CardList getDeckCardlistStructured() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.readValue(this.deckCardsStructured, CardList.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new CardList();
+    }
+
+    @Transient
+    public CardList getOwnedCardlist() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.readValue(this.ownedCards, CardList.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new CardList();
+    }
+
+    @Transient
+    public String generateAccessToken() {
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < 32; i++) {
+            s.append((char) (48 + Math.random() * 75));
+        }
+        accessToken = s.toString();
+        return accessToken;
+    }
+
+    @Transient
+    public boolean compareHashedPassword(String pw) {
+        if (pw.hashCode() == hashedPassword) return true;
+        return false;
     }
 }

@@ -14,8 +14,17 @@ public class GameManager {
      * @return
      */
     public static String[] runGame(User player1, User player2, GameMode mode) {
-        Deck player1Deck = new Deck(player1.getDeckCardlist().toArray(), player1.getUsername());
-        Deck player2Deck = new Deck(player2.getDeckCardlist().toArray(), player2.getUsername());
+        Deck player1Deck = null, player2Deck = null;
+        switch (mode) {
+            case Classic -> {
+                player1Deck = new Deck(player1.getDeckCardlistClassic().toArray(), player1.getUsername());
+                player2Deck = new Deck(player2.getDeckCardlistClassic().toArray(), player2.getUsername());
+            }
+            case Structured -> {
+                player1Deck = new Deck(player1.getDeckCardlistStructured().toArray(), player1.getUsername());
+                player2Deck = new Deck(player2.getDeckCardlistStructured().toArray(), player2.getUsername());
+            }
+        }
         ArrayList<String> outcomes = new ArrayList<>();
         outcomes.add("Ranked game between " + player1.getUsername() + " and " + player2.getUsername());
         outcomes.add("Playing in " + mode + " mode");
@@ -53,10 +62,16 @@ public class GameManager {
 
         if (player1Deck.getCards().length > player2Deck.getCards().length) {
             eloAdjust(player1, player2, outcomes, player1Deck, player2Deck);
+            player1.setPayToWinCoins(player1.getPayToWinCoins() + 2);
+            player2.setPayToWinCoins(player2.getPayToWinCoins() + 1);
         } else if (player2Deck.getCards().length > player1Deck.getCards().length) {
             eloAdjust(player2, player1, outcomes, player2Deck, player1Deck);
+            player2.setPayToWinCoins(player2.getPayToWinCoins() + 2);
+            player1.setPayToWinCoins(player1.getPayToWinCoins() + 1);
         } else {
             outcomes.add("The game between " + player1.getUsername() + " and " + player2.getUsername() + " ended in a draw");
+            player1.setPayToWinCoins(player1.getPayToWinCoins() + 1);
+            player2.setPayToWinCoins(player2.getPayToWinCoins() + 1);
         }
         return outcomes.toArray(new String[0]);
     }

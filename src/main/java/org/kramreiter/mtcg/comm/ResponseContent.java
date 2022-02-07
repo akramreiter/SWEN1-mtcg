@@ -8,5 +8,7 @@ import lombok.Setter;
 @Setter
 public class ResponseContent {
     @JsonAlias("response")
-    private String[] response;
+    private String[] response = new String[0];
+    @JsonAlias("token")
+    private String token = "";
 }
