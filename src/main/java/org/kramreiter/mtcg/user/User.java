@@ -180,6 +180,7 @@ public class User {
         }
         return new CardList();
     }
+
     @Transient
     public boolean setDeckCardlistStructured(CardList list) {
         ObjectWriter writer = new ObjectMapper().writer();
@@ -208,6 +209,19 @@ public class User {
             e.printStackTrace();
         }
         return new CardList();
+    }
+
+    @Transient
+    public boolean setOwnedCardlist(CardList list) {
+        ObjectWriter writer = new ObjectMapper().writer();
+        try {
+            this.ownedCards = writer.writeValueAsString(list);
+            return true;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            this.deckCardsStructured = null;
+        }
+        return false;
     }
 
     @Transient

@@ -33,6 +33,7 @@
         <property name="hbm2ddl.auto">update</property>
 
         <mapping class="org.kramreiter.mtcg.user.User"/>
+        <mapping class="org.kramreiter.mtcg.user.Trade"/>
 
     </session-factory>
 

@@ -29,9 +29,7 @@ public class RequestHandler implements Runnable {
     public void run() {
         try {
             while (true) {
-                System.out.println("1");
                 Response response;
-                System.out.println("2");
                 Request request = RequestBuilder.buildRequest(this.in);
 
                 if (request.getPathname() == null) {
@@ -43,7 +41,6 @@ public class RequestHandler implements Runnable {
                 } else {
                     response = this.app.handleRequest(request);
                 }
-                System.out.println(response.getContent());
                 output.printf(response.get());
             }
         } catch (IOException e) {

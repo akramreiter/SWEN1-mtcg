@@ -9,40 +9,39 @@ public class RequestBuilder {
     static final String CONTENT_LENGTH = "Content-Length: ";
 
     public static Request buildRequest(BufferedReader in) throws IOException {
-        String line = in.readLine();
+        String line = null;
         Request request = new Request();
 
-        if (line != null) {
-            String[] splitFirstLine = line.split(" ");
-            Boolean hasParams = splitFirstLine[1].contains("?");
+        do {
+            line = in.readLine();
+        } while (line == null);
+
+        String[] splitFirstLine = line.split(" ");
+        Boolean hasParams = splitFirstLine[1].contains("?");
 
 
-            request.setMethod(getMethod(splitFirstLine));
-            request.setPathname(getPathname(splitFirstLine, hasParams));
-            request.setParams(getParams(splitFirstLine, hasParams));
+        request.setMethod(getMethod(splitFirstLine));
+        request.setPathname(getPathname(splitFirstLine, hasParams));
+        request.setParams(getParams(splitFirstLine, hasParams));
 
-            while (!line.isEmpty()) {
-                line = in.readLine();
-                if (line.startsWith(CONTENT_LENGTH)) {
-                    request.setContentLength(getContentLength(line));
-                }
-                if (line.startsWith(CONTENT_TYPE)) {
-                    request.setContentType(getContentType(line));
-                }
+        while (!line.isEmpty()) {
+            line = in.readLine();
+            if (line.startsWith(CONTENT_LENGTH)) {
+                request.setContentLength(getContentLength(line));
             }
-
-            if (request.getMethod() == Method.POST || request.getMethod() == Method.PUT) {
-                int asciiChar;
-                for (int i = 0; i < request.getContentLength(); i++) {
-                    asciiChar = in.read();
-                    String body = request.getBody();
-                    request.setBody(body + ((char) asciiChar));
-                    System.out.print((char) asciiChar);
-                }
-                System.out.println();
-                System.out.println("DONE");
+            if (line.startsWith(CONTENT_TYPE)) {
+                request.setContentType(getContentType(line));
             }
-            System.out.println(request.getBody());
+        }
+
+        if (request.getMethod() == Method.POST || request.getMethod() == Method.PUT) {
+            int asciiChar;
+            for (int i = 0; i < request.getContentLength(); i++) {
+                asciiChar = in.read();
+                String body = request.getBody();
+                request.setBody(body + ((char) asciiChar));
+                System.out.print((char) asciiChar);
+            }
         }
 
         return request;
@@ -53,11 +52,14 @@ public class RequestBuilder {
     }
 
     private static String getPathname(String[] splitFirstLine, Boolean hasParams) {
+        String out = splitFirstLine[1];
         if (hasParams) {
-            return splitFirstLine[1].split("\\?")[0];
+            out = out.split("\\?")[0];
         }
-
-        return splitFirstLine[1];
+        if (splitFirstLine[1].contains("/")) {
+            out = out.split("/")[1];
+        }
+        return out;
     }
 
 

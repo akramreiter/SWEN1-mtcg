@@ -19,6 +19,7 @@ public abstract class Card implements Cloneable {
     protected String customWin;
     @Setter
     protected String ownerName;
+    protected String cardId;
 
     public Card clone() {
         try {
@@ -44,7 +45,7 @@ public abstract class Card implements Cloneable {
 
     public String toString() {
         StringBuilder out = new StringBuilder();
-        out.append(getName()).append(" (");
+        out.append(getCardId()).append(": ").append(getName()).append(" (");
         if (isSpell()) {
             out.append("Spell");
         } else {

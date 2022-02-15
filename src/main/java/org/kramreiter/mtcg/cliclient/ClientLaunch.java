@@ -3,8 +3,10 @@ package org.kramreiter.mtcg.cliclient;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.kramreiter.mtcg.card.CardFactory;
+import org.kramreiter.mtcg.card.CardType;
 import org.kramreiter.mtcg.card.GameMode;
 import org.kramreiter.mtcg.comm.*;
+import org.kramreiter.mtcg.user.CardFilter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,7 +31,6 @@ public class ClientLaunch {
             int port_nr = Integer.parseInt(input[1]);
             sock = new Socket(ip_adr, port_nr);
             sock_out = new PrintWriter(sock.getOutputStream(), true);
-            sock_in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Server connection failed. Shutting down...");
@@ -82,7 +83,6 @@ public class ClientLaunch {
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
-                System.out.println("2");
                 req.setContentLength(req.getBody().length());
                 sock_out.printf(req.get());
                 while (!vars.responseReceived) {
@@ -106,19 +106,28 @@ public class ClientLaunch {
                         """
                                 getcollection: view your card collection
                                 getuserinfo: view your account information
+                                gettrade: list your trades
+                                getlibrary: view all cards in game
                                 queueup: enter queue for games
                                 setdeck: configure your deck
                                 openpack: open a pack of card (costs coins)
-                                searchtrade: search for public trades
                                 offertrade: offer your cards up for trading
+                                canceltrade: cancel ongoing trades
+                                searchtrade: search for public trades
                                 accepttrade: accept a specific trade offer
                                 exit: close program"""
                 );
                 case "getcollection" -> getCollection(sock_out, req, content);
                 case "getuserinfo" -> getUserInfo(sock_out, req, content);
+                case "gettrade" -> getTrade(sock_out, req, content);
                 case "openpack" -> openPack(sock_out, req, content);
                 case "queueup" -> queueUp(sock_out, req, content, s);
                 case "setdeck" -> setDeck(sock_out, req, content, s);
+                case "offertrade" -> offerTrade(sock_out, req, content, s);
+                case "accepttrade" -> acceptTrade(sock_out, req, content, s);
+                case "searchtrade" -> searchTrade(sock_out, req, content, s);
+                case "canceltrade" -> cancelTrade(sock_out, req, content, s);
+                case "getlibrary" -> getLibrary(sock_out, req, content);
                 case "exit" -> {
                     try {
                         sock.close();
@@ -132,6 +141,188 @@ public class ClientLaunch {
                 System.out.println(input);
             }
         }
+    }
+
+    private static void getLibrary(PrintWriter writer, Request request, RequestContent content) {
+        request.setPathname("getlibrary");
+        try {
+            String body = mapper.writeValueAsString(content);
+            request.setBody(body);
+            request.setContentLength(body.length());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        writer.printf(request.get());
+    }
+
+    private static void searchTrade(PrintWriter writer, Request request, RequestContent content, Scanner scanner) {
+        request.setPathname("searchtrade");
+        String cardId = null, in = null;
+        do {
+            System.out.println("Enter card ID to search trades for"
+                    + "\nAlternatively, enter \"e\" to exit");
+            in = scanner.nextLine().trim();
+            if (CardFactory.getInstance().getCard(in) != null) {
+                cardId = in;
+            } else if (in.startsWith("e")) {
+                return;
+            }
+        } while (cardId == null);
+        content.setCards(new String[]{
+                cardId
+        });
+        try {
+            String body = mapper.writeValueAsString(content);
+            request.setBody(body);
+            request.setContentLength(body.length());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        writer.printf(request.get());
+    }
+
+    private static void acceptTrade(PrintWriter writer, Request request, RequestContent content, Scanner scanner) {
+        request.setPathname("accepttrade");
+        String cardId = null, in = null, tradeId = null;
+        do {
+            System.out.println("Enter trade ID to accept"
+                    + "\nAlternatively, enter \"e\" to exit");
+            in = scanner.nextLine().trim();
+            boolean checkNumeric = true;
+            try {
+                Integer.parseInt(in);
+            } catch (Exception e) {
+                checkNumeric = false;
+            }
+            if (checkNumeric) {
+                tradeId = in;
+            } else if (in.startsWith("e")) {
+                return;
+            }
+        } while (tradeId == null);
+        do {
+            System.out.println("Enter card ID to trade"
+                    + "\nAlternatively, enter \"e\" to exit");
+            in = scanner.nextLine().trim();
+            if (CardFactory.getInstance().getCard(in) != null) {
+                cardId = in;
+            } else if (in.startsWith("e")) {
+                return;
+            }
+        } while (cardId == null);
+        content.setCards(new String[]{
+                cardId
+        });
+        content.setId(tradeId);
+        try {
+            String body = mapper.writeValueAsString(content);
+            request.setBody(body);
+            request.setContentLength(body.length());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        writer.printf(request.get());
+    }
+
+    private static void cancelTrade(PrintWriter writer, Request request, RequestContent content, Scanner scanner) {
+        request.setPathname("canceltrade");
+        String cardId = null, in = null;
+        do {
+            System.out.println("Enter card ID to retract from trades"
+                    + "\nAlternatively, enter \"e\" to exit");
+            in = scanner.nextLine().trim();
+            if (CardFactory.getInstance().getCard(in) != null) {
+                cardId = in;
+            } else if (in.startsWith("e")) {
+                return;
+            }
+        } while (cardId == null);
+        content.setCards(new String[]{
+                cardId
+        });
+        try {
+            String body = mapper.writeValueAsString(content);
+            request.setBody(body);
+            request.setContentLength(body.length());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        writer.printf(request.get());
+    }
+
+    private static void offerTrade(PrintWriter writer, Request request, RequestContent content, Scanner scanner) {
+        request.setPathname("offertrade");
+        String offer = null, type = null, in;
+        do {
+            System.out.println("Enter card ID to offer for trade"
+                    + "\nAlternatively, enter \"e\" to exit");
+            in = scanner.nextLine().trim();
+            if (CardFactory.getInstance().getCard(in) != null) {
+                offer = in;
+            } else if (in.startsWith("e")) {
+                return;
+            }
+        } while (offer == null);
+        content.setCards(new String[]{
+                offer
+        });
+        CardFilter filter = new CardFilter();
+        int str;
+        System.out.println("Search for specific card (\"c\") or leave empty to create custom filter");
+        in = scanner.nextLine().trim();
+        if (in.startsWith("c")) {
+            do {
+                System.out.println("Enter card ID to search for trade"
+                        + "\nAlternatively, enter \"e\" to exit");
+                in = scanner.nextLine().trim();
+                if (CardFactory.getInstance().getCard(in) != null) {
+                    filter.setCardId(in);
+                } else if (in.startsWith("e")) {
+                    return;
+                }
+            } while (filter.getCardId() == null);
+        } else {
+            do {
+                System.out.println("Set minimum card strength"
+                        + "\nAlternatively, enter \"e\" to exit");
+                in = scanner.nextLine().trim();
+                if (in.startsWith("e")) {
+                    return;
+                } else {
+                    try {
+                        filter.setMinStr(Integer.parseInt(in));
+                    } catch (Exception e) {}
+                }
+            } while (filter.getMinStr() < 0);
+            System.out.println("Filter for type (\"y\")?");
+            filter.setMatchType(scanner.nextLine().startsWith("y"));
+            if (filter.isMatchType()) {
+                System.out.println("Enter type:");
+                filter.setType(CardType.typeFromString(scanner.nextLine().trim()).toString());
+            }
+            System.out.println("Filter for spell (\"y\")?");
+            filter.setMatchIsSpell(scanner.nextLine().startsWith("y"));
+            if (filter.isMatchIsSpell()) {
+                System.out.println("Card has to be spell (\"y\") or creature (empty)");
+                filter.setSpell(scanner.nextLine().startsWith("y"));
+            }
+            System.out.println("Filter for effect (\"y\")?");
+            filter.setMatchHasEffect(scanner.nextLine().startsWith("y"));
+            if (filter.isMatchHasEffect()) {
+                System.out.println("Card has an effect (\"y\") or not (empty)");
+                filter.setHasEffect(scanner.nextLine().startsWith("y"));
+            }
+        }
+
+        try {
+            content.setFilter(mapper.writeValueAsString(filter));
+            String body = mapper.writeValueAsString(content);
+            request.setBody(body);
+            request.setContentLength(body.length());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        writer.printf(request.get());
     }
 
     private static void getCollection(PrintWriter writer, Request request, RequestContent content) {
@@ -148,6 +339,18 @@ public class ClientLaunch {
 
     private static void getUserInfo(PrintWriter writer, Request request, RequestContent content) {
         request.setPathname("getuserinfo");
+        try {
+            String body = mapper.writeValueAsString(content);
+            request.setBody(body);
+            request.setContentLength(body.length());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        writer.printf(request.get());
+    }
+
+    private static void getTrade(PrintWriter writer, Request request, RequestContent content) {
+        request.setPathname("gettrade");
         try {
             String body = mapper.writeValueAsString(content);
             request.setBody(body);

@@ -12,6 +12,8 @@ public class RequestContent {
     private String[] cards = new String[0];
     @JsonAlias("filter")
     private String filter = "";
+    @JsonAlias("id")
+    private String id = "";
     @JsonAlias("game_mode")
     private GameMode gameMode;
     @JsonAlias("token")

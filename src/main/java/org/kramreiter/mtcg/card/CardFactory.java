@@ -31,6 +31,49 @@ public class CardFactory {
         return null;
     }
 
+    public Card[] getFullLibrary() {
+        ArrayList<Card> out = new ArrayList<>();
+        for (String s : new String[] {
+                FILE_COMMON,
+                FILE_RARE,
+                FILE_EPIC,
+                FILE_LEGENDARY
+        }) {
+            try {
+                Card next;
+                String[] card;
+                CSVReaderHeaderAware reader = new CSVReaderHeaderAware(new FileReader(s));
+                while ((card = reader.readNext()) != null) {
+                    if (card[3].equals("1")) {
+                        next = new CardSpell(
+                                card[1],
+                                Integer.parseInt(card[4]),
+                                Integer.parseInt(card[2]),
+                                Integer.parseInt(card[5]),
+                                card[7],
+                                card[0]
+                        );
+                    } else {
+                        next = new CardMonster(
+                                card[1],
+                                Integer.parseInt(card[4]),
+                                Integer.parseInt(card[2]),
+                                Integer.parseInt(card[5]),
+                                card[7],
+                                Integer.parseInt(card[6]),
+                                card[0]
+                        );
+                    }
+                    next.setCustomWin(getCustomWinForId(card[0]));
+                    out.add(next);
+                }
+            } catch (IOException | CsvValidationException e) {
+                e.printStackTrace();
+            }
+        }
+        return out.toArray(new Card[0]);
+    }
+
     public Card getCard(String cardId, Rarity rarity) {
         String filename = fileFromRarity(rarity);
         try {
@@ -45,7 +88,8 @@ public class CardFactory {
                                 Integer.parseInt(card[4]),
                                 Integer.parseInt(card[2]),
                                 Integer.parseInt(card[5]),
-                                card[7]
+                                card[7],
+                                card[0]
                         );
                     } else {
                         out = new CardMonster(
@@ -54,7 +98,8 @@ public class CardFactory {
                                 Integer.parseInt(card[2]),
                                 Integer.parseInt(card[5]),
                                 card[7],
-                                Integer.parseInt(card[6])
+                                Integer.parseInt(card[6]),
+                                card[0]
                         );
                     }
                     out.setCustomWin(getCustomWinForId(cardId));

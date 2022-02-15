@@ -15,7 +15,7 @@ public class GearUp implements UniqueEffect {
     public String executeEffect(Card self, Card opponent, Deck selfDeck, Deck opponentDeck, CombatOutcome prevOutcome) {
         if (!available) return null;
         selfDeck.removeCard(self);
-        Card spear = new CardSpell("Spear of Justice", SPEARSTR, CardType.Normal, Rarity.Legendary, null);
+        Card spear = new CardSpell("Spear of Justice", SPEARSTR, CardType.Normal, Rarity.Legendary, null, "0000");
         spear.setOwnerName(self.getOwnerName());
         selfDeck.addCards(new Card[] {
                 spear.clone(),

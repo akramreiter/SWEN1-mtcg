@@ -13,7 +13,7 @@ public class OrkImpact implements UniqueEffect {
     @Override
     public String executeEffect(Card self, Card opponent, Deck selfDeck, Deck opponentDeck, CombatOutcome prevOutcome) {
         if (!orkFired) {
-            Card flyingOrk = new CardMonster("Flying Ork", 35, CardType.Air, Rarity.Epic, null, MonsterTag.Ork);
+            Card flyingOrk = new CardMonster("Flying Ork", 35, CardType.Air, Rarity.Epic, null, MonsterTag.Ork, "0000");
             flyingOrk.setOwnerName(self.getOwnerName());
             selfDeck.addCard(flyingOrk);
             orkFired = true;

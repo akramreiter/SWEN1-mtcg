@@ -8,7 +8,9 @@ import org.kramreiter.mtcg.card.Card;
 import org.kramreiter.mtcg.card.CardFactory;
 import org.kramreiter.mtcg.card.GameMode;
 import org.kramreiter.mtcg.comm.*;
+import org.kramreiter.mtcg.user.CardFilter;
 import org.kramreiter.mtcg.user.CardList;
+import org.kramreiter.mtcg.user.Trade;
 import org.kramreiter.mtcg.user.User;
 
 import java.io.PrintWriter;
@@ -45,8 +47,11 @@ public class MTCGApp implements ServerApp {
                 case "searchtrade" -> output = searchTrade(content);
                 case "offertrade" -> output = offerTrade(content);
                 case "accepttrade" -> output = acceptTrade(content);
+                case "canceltrade" -> output = cancelTrade(content);
                 case "getcollection" -> output = getCollection(content);
                 case "getuserinfo" -> output = getUserInfo(content);
+                case "gettrade" -> output = getTrade(content);
+                case "getlibrary" -> output = getLibrary(content);
                 default -> output.setResponse(new String[]{"[ERR] unknown command"});
             }
         } catch (JsonProcessingException e) {
@@ -60,6 +65,16 @@ public class MTCGApp implements ServerApp {
             }
         }
         return new Response(HttpStatus.INTERNAL_SERVER_ERROR, ContentType.JSON, "[]");
+    }
+
+    public ResponseContent getLibrary(RequestContent request) {
+        ResponseContent out = new ResponseContent();
+        ArrayList<String> output = new ArrayList<>();
+        for (Card c : cardFactory.getFullLibrary()) {
+            output.add(c.toString());
+        }
+        out.setResponse(output.toArray(new String[0]));
+        return out;
     }
 
     public ResponseContent login(RequestContent request) {
@@ -257,11 +272,28 @@ public class MTCGApp implements ServerApp {
             });
             return out;
         }
-        return out;
+        List<Trade> trades = session.createQuery("from Trade where offeringUser != '" + request.getUsername() + "' and cardOffer = '" + request.getCards()[0] + "'").getResultList();
+        return getTradesList(out, trades);
+    }
+
+    public ResponseContent getTrade(RequestContent request) {
+        ResponseContent out = new ResponseContent();
+        User activeUser;
+        try {
+            activeUser = auth(request.getUsername(), request.getToken());
+        } catch (IllegalAccessException e) {
+            out.setResponse(new String[]{
+                    "[ERR] command \"accepttrade\" failed: user authentication failed"
+            });
+            return out;
+        }
+        List<Trade> trades = session.createQuery("from Trade where offeringUser = '" + request.getUsername() + "'").getResultList();
+        return getTradesList(out, trades);
     }
 
     public ResponseContent offerTrade(RequestContent request) {
         ResponseContent out = new ResponseContent();
+
         User activeUser;
         try {
             activeUser = auth(request.getUsername(), request.getToken());
@@ -270,6 +302,28 @@ public class MTCGApp implements ServerApp {
                     "[ERR] command \"offertrade\" failed: user authentication failed"
             });
             return out;
+        }
+        try {
+            CardFilter filter = mapper.readValue(request.getFilter(), CardFilter.class);
+            CardList ownedCards = activeUser.getOwnedCardlist();
+            if (!ownedCards.get().containsKey(request.getCards()[0])) throw new Exception();
+            ownedCards.removeCard(request.getCards()[0]);
+            Trade trade = new Trade(activeUser, request.getCards()[0], filter);
+            synchronized (ServerLaunch.TRANSACTION_LOCK) {
+                session.beginTransaction();
+                activeUser.setOwnedCardlist(ownedCards);
+                session.update(activeUser);
+                session.save(trade);
+                session.getTransaction().commit();
+            }
+            Card c = cardFactory.getCard(request.getCards()[0]);
+            out.setResponse(new String[]{
+                    c.getName() + " offered for trade"
+            });
+        } catch (Exception e) {
+            out.setResponse(new String[]{
+                    "[ERR] command \"offertrade\" failed: trade creation not successful"
+            });
         }
         return out;
     }
@@ -284,6 +338,81 @@ public class MTCGApp implements ServerApp {
                     "[ERR] command \"accepttrade\" failed: user authentication failed"
             });
             return out;
+        }
+        try {
+            Trade trade = (Trade) session.createQuery("from Trade where id = '" + Long.parseLong(request.getId()) + "'").getResultList().get(0);
+            CardFilter filter = mapper.readValue(trade.getCardFilter(), CardFilter.class);
+            if (filter.matchFilter(request.getCards()[0])) {
+                User trader = (User) session.createQuery("from User where username = '" + trade.getOfferingUser() + "'").getResultList().get(0);
+                CardList traderCl = trader.getOwnedCardlist();
+                CardList userCl = activeUser.getOwnedCardlist();
+                if (!userCl.removeCard(request.getCards()[0])) throw new Exception();
+                synchronized (ServerLaunch.TRANSACTION_LOCK) {
+                    try {
+                        session.beginTransaction();
+                        traderCl.addCard(request.getCards()[0]);
+                        userCl.addCard(trade.getCardOffer());
+                        activeUser.setOwnedCardlist(userCl);
+                        trader.setOwnedCardlist(traderCl);
+                        session.delete(trade);
+                        session.update(activeUser);
+                        session.update(trader);
+                        session.getTransaction().commit();
+                        out.setResponse(new String[] {
+                                "trade successful, received " + cardFactory.getCard(trade.getCardOffer()).toString()
+                        });
+                    } catch (Exception e) {
+                        session.getTransaction().rollback();
+                        throw new Exception();
+                    }
+                }
+            } else {
+                out.setResponse(new String[]{
+                        "[ERR] command \"accepttrade\" failed: card doesn't meet requirements"
+                });
+            }
+        } catch (Exception e) {
+            out.setResponse(new String[]{
+                    "[ERR] command \"accepttrade\" failed: couldn't execute trade"
+            });
+        }
+        return out;
+    }
+
+    public ResponseContent cancelTrade(RequestContent request) {
+        ResponseContent out = new ResponseContent();
+        User activeUser;
+        try {
+            activeUser = auth(request.getUsername(), request.getToken());
+        } catch (IllegalAccessException e) {
+            out.setResponse(new String[]{
+                    "[ERR] command \"canceltrade\" failed: user authentication failed"
+            });
+            return out;
+        }
+        synchronized (ServerLaunch.TRANSACTION_LOCK) {
+            session.beginTransaction();
+            try {
+                CardList ownedCards = activeUser.getOwnedCardlist();
+                List<Trade> trades = session.createQuery("from Trade where offeringUser = '" + request.getUsername() + "' and cardOffer = '" + request.getCards()[0] + "'").getResultList();
+                int count = 0;
+                for (Trade t : trades) {
+                    session.remove(t);
+                    count++;
+                    ownedCards.addCard(request.getCards()[0]);
+                }
+                activeUser.setOwnedCardlist(ownedCards);
+                session.update(activeUser);
+                session.getTransaction().commit();
+                out.setResponse(new String[]{
+                        count + " trades canceled"
+                });
+            } catch (Exception e) {
+                session.getTransaction().rollback();
+                out.setResponse(new String[]{
+                        "[ERR] command \"canceltrade\" failed: couldn't cancel trades"
+                });
+            }
         }
         return out;
     }
@@ -353,5 +482,25 @@ public class MTCGApp implements ServerApp {
             throw new IllegalAccessException();
         }
         return users.get(0);
+    }
+
+    private ResponseContent getTradesList(ResponseContent out, List<Trade> trades) {
+        ArrayList<String> output = new ArrayList<>();
+        output.add("Trades found: " + trades.size());
+        for (Trade t : trades) {
+            try {
+                CardFilter f = mapper.readValue(t.getCardFilter(), CardFilter.class);
+                output.add("Trade: " + t.getId() + ": " + t.getCardOffer() + " - " + cardFactory.getCard(t.getCardOffer().toString()));
+                if (f.getCardId() != null) {
+                    output.add("Requirement: " + f.getCardId() + " - " + cardFactory.getCard(f.getCardId().toString()));
+                } else {
+                    output.add("Requirement: " + f);
+                }
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+        out.setResponse(output.toArray(new String[0]));
+        return out;
     }
 }

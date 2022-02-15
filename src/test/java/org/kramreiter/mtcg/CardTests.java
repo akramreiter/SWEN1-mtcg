@@ -12,8 +12,8 @@ public class CardTests {
 
     @BeforeEach
     void setupCards() {
-        testSpell = new CardSpell("hi",50,2,0,null);
-        testMonster = new CardMonster("hi2", 70, 0, 0, null, 0);
+        testSpell = new CardSpell("hi",50,2,0,null, "");
+        testMonster = new CardMonster("hi2", 70, 0, 0, null, 0, "");
         System.out.println(testMonster);
         System.out.println(testSpell);
     }
