@@ -43,4 +43,4 @@ Disclaimer: TotallyRealGamesCompanyExploitativeGames doesn't exist and this soft
 
 ### Github Link
 
-`https://github.com/akramreiter/SWEN1-mtcg/settings`
+`https://github.com/akramreiter/SWEN1-mtcg`
